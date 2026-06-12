@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Energy Engine — the honest home energy advisor | UK &amp; Ireland</title>
+<meta name="description" content="An independent home-energy decision engine for the UK and Ireland. We favour no technology and our ranking can't be bought. Tell us about your house and see your honest best options — heat pump, insulation, solar, boiler — with the working shown.">
+<meta name="robots" content="index, follow">
+<!-- Open Graph -->
+<meta property="og:title" content="My Energy Engine — the honest home energy advisor">
+<meta property="og:description" content="If it was my own money, what would I do with your house? An independent engine that shows its working and can't be bought.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_IE">
+<!-- og:image to add: 1200x630 og-image.png -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fafbf9; --surface:#ffffff; --surface-2:#eef2f0; --paper:#fcfdfc;
+    --ink:#0d1c18; --ink-soft:#44544e; --muted:#7a8a84; --muted-d:#9fb2ac;
+    --brand:#0a7a62; --brand-2:#12a585; --brand-tint:#e6f3ef; --brand-ink:#063f33;
+    --mint:#0a7a62; --mint-bright:#16c79a;
+    --ember:#c2620e; --ember-soft:#e8975a; --ember-tint:#fcefe2; --ember-ink:#8a3d10;
+    --gold:#b9852a;
+    --panel:#0c1f1b; --panel-2:#12302a; --panel-line:rgba(255,255,255,.10);
+    --line:#e3e9e6; --line-2:#d3dcd7;
+    --maxw:1140px; --r:16px; --r-lg:22px;
+    --sh-1:0 1px 2px rgba(13,28,24,.06), 0 1px 1px rgba(13,28,24,.04);
+    --sh-2:0 2px 6px rgba(13,28,24,.05), 0 14px 30px -16px rgba(13,28,24,.18);
+    --sh-3:0 30px 60px -28px rgba(8,40,33,.40);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Hanken Grotesk",system-ui,sans-serif;font-size:17px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;letter-spacing:-.005em;
+  }
+  h1,h2,h3,h4,.ui{font-family:"Hanken Grotesk",system-ui,sans-serif;letter-spacing:-.02em;font-weight:700}
+  .serif{font-family:"Fraunces",Georgia,serif;font-weight:500;letter-spacing:-.01em}
+  .mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+  a{color:inherit}
+  img{max-width:100%}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .eyebrow{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--brand);font-weight:500}
+  .panel-eyebrow{color:var(--mint-bright)}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s cubic-bezier(.2,.6,.2,1),transform .6s cubic-bezier(.2,.6,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- top bar ---------- */
+  .bar{position:sticky;top:0;z-index:40;background:rgba(246,248,246,.82);backdrop-filter:saturate(160%) blur(12px);border-bottom:1px solid var(--line)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:18.5px;letter-spacing:-.03em;white-space:nowrap;min-width:0}
+  .seal{width:30px;height:30px;flex:0 0 auto;border-radius:9px;background:linear-gradient(150deg,var(--brand),var(--brand-2));display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px -4px rgba(10,122,98,.5)}
+  .seal svg{width:17px;height:17px}
+  .brand small{font-family:"JetBrains Mono",monospace;font-weight:400;font-size:10.5px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-left:2px}
+  .bar nav{display:flex;align-items:center;gap:26px}
+  .bar nav a.nl{font-weight:500;font-size:14.5px;text-decoration:none;color:var(--ink-soft)}
+  .bar nav a.nl:hover{color:var(--ink)}
+  .bar a.cta{font-weight:600;font-size:14.5px;text-decoration:none;background:var(--ink);color:#fff;padding:10px 18px;border-radius:999px;transition:transform .12s ease,background .15s;white-space:nowrap}
+  .bar a.cta:hover{background:var(--brand);transform:translateY(-1px)}
+  .cta-short{display:none}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;background:
+    radial-gradient(680px 380px at 88% -6%, rgba(18,165,133,.10), transparent 62%),
+    radial-gradient(560px 340px at -4% 8%, rgba(10,122,98,.06), transparent 60%);pointer-events:none}
+  .hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;padding:78px 24px 88px}
+  .hgrip{font-family:"JetBrains Mono",monospace;display:inline-flex;align-items:center;gap:9px;font-size:12px;letter-spacing:.04em;color:var(--brand-ink);background:var(--brand-tint);border:1px solid #cfe7df;padding:7px 13px;border-radius:999px}
+  .hgrip b{width:7px;height:7px;border-radius:50%;background:var(--brand-2);display:block}
+  h1.hh{font-size:clamp(36px,5.4vw,60px);line-height:1.03;margin:22px 0 0;letter-spacing:-.035em}
+  h1.hh em{font-family:"Fraunces",Georgia,serif;font-style:italic;font-weight:500;color:var(--brand);letter-spacing:-.02em}
+  .hero .lede{font-size:clamp(17px,2vw,20px);color:var(--ink-soft);max-width:46ch;margin:22px 0 0;line-height:1.55}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:13px;margin:32px 0 0}
+  .btn{font-family:"Hanken Grotesk",sans-serif;font-weight:600;font-size:16px;border:0;border-radius:12px;padding:15px 24px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:9px;transition:transform .12s ease,background .15s ease,box-shadow .15s,border-color .15s}
+  .btn:active{transform:translateY(1px)}
+  .btn-primary{background:var(--brand);color:#fff;box-shadow:0 8px 20px -8px rgba(10,122,98,.6)}
+  .btn-primary:hover{background:#096b56;box-shadow:0 10px 26px -8px rgba(10,122,98,.7)}
+  .btn-ghost{background:var(--surface);color:var(--ink);border:1px solid var(--line-2)}
+  .btn-ghost:hover{border-color:var(--ink);background:#fff}
+  .htrust{display:flex;flex-wrap:wrap;gap:8px 20px;margin:30px 0 0;font-family:"JetBrains Mono",monospace;font-size:12.5px;color:var(--muted)}
+  .htrust span{display:flex;align-items:center;gap:8px}
+  .htrust span::before{content:"";width:15px;height:15px;flex:0 0 auto;border-radius:50%;background:var(--brand-tint) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.2l2.2 2.2L9.5 3.6' stroke='%230a7a62' stroke-width='1.7' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/10px no-repeat}
+
+  /* hero readout card */
+  .readout{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh-2);overflow:hidden}
+  .ro-top{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--line);background:var(--paper)}
+  .ro-top .rl{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .ro-live{display:flex;align-items:center;gap:7px;font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--brand)}
+  .ro-live i{width:7px;height:7px;border-radius:50%;background:var(--brand-2);box-shadow:0 0 0 0 rgba(18,165,133,.5);animation:pulse 2.4s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(18,165,133,.45)}70%{box-shadow:0 0 0 7px rgba(18,165,133,0)}100%{box-shadow:0 0 0 0 rgba(18,165,133,0)}}
+  .ro-sub{padding:14px 20px 4px;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+  .ro-row{display:flex;align-items:center;gap:14px;justify-content:space-between;padding:13px 20px;border-bottom:1px solid var(--line)}
+  .ro-row:last-child{border-bottom:0}
+  .ro-rank{width:24px;height:24px;border-radius:7px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:600;background:var(--surface-2);color:var(--ink-soft)}
+  .ro-row.best .ro-rank{background:var(--brand);color:#fff}
+  .ro-row.bad .ro-rank{background:var(--ember-tint);color:var(--ember-ink)}
+  .ro-name{flex:1;min-width:0}
+  .ro-name .nm{display:block;font-weight:600;font-size:14.5px;line-height:1.25}
+  .ro-name .tg{display:block;font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.04em;color:var(--muted);text-transform:uppercase;margin-top:4px}
+  .ro-row.best .ro-name .tg{color:var(--brand)}
+  .ro-row.bad .ro-name .tg{color:var(--ember)}
+  .ro-fig{font-family:"JetBrains Mono",monospace;font-size:13px;font-weight:600;text-align:right;white-space:nowrap}
+  .ro-fig b{color:var(--brand);font-weight:600}
+  .ro-row.bad .ro-fig b{color:var(--ember)}
+  .ro-foot{padding:13px 20px;font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--muted);background:var(--paper);border-top:1px solid var(--line)}
+
+  /* ---------- generic sections ---------- */
+  section{padding:88px 0}
+  .sec-head{max-width:62ch}
+  .sec-head h2{font-size:clamp(28px,4vw,42px);line-height:1.07;margin:14px 0 0;letter-spacing:-.03em}
+  .sec-head h2 em{font-family:"Fraunces",Georgia,serif;font-style:italic;font-weight:500;color:var(--brand)}
+  .sec-head p{color:var(--ink-soft);margin:16px 0 0;font-size:18px;max-width:58ch}
+
+  /* problem */
+  .problem{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .pgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:42px}
+  .pcard{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:26px;transition:transform .18s ease,box-shadow .18s ease,border-color .18s}
+  .pcard:hover{transform:translateY(-3px);box-shadow:var(--sh-2);border-color:var(--line-2)}
+  .picon{width:38px;height:38px;border-radius:10px;background:var(--brand-tint);display:flex;align-items:center;justify-content:center;margin-bottom:15px}
+  .picon svg{width:20px;height:20px;stroke:var(--brand);fill:none;stroke-width:1.7}
+  .pcard h3{font-size:18px;margin:0 0 7px;font-weight:700;letter-spacing:-.02em}
+  .pcard p{margin:0;color:var(--ink-soft);font-size:16px;line-height:1.55}
+  .founder{margin-top:42px;display:flex;gap:22px;align-items:flex-start;background:var(--brand-tint);border:1px solid #cfe7df;border-radius:var(--r-lg);padding:30px 32px}
+  .founder .qmark{font-family:"Fraunces",Georgia,serif;font-size:60px;line-height:.7;color:var(--brand-2);flex:0 0 auto;opacity:.5}
+  .founder p{margin:0;font-family:"Fraunces",Georgia,serif;font-size:21px;line-height:1.45;color:var(--brand-ink);font-weight:400}
+  .founder cite{display:block;margin-top:14px;font-family:"JetBrains Mono",monospace;font-style:normal;font-size:12px;letter-spacing:.06em;color:var(--brand);text-transform:uppercase}
+
+  /* ---------- the engine / wizard (dark instrument) ---------- */
+  .engine{background:var(--panel);color:#eef3f0;position:relative;overflow:hidden}
+  .engine::before{content:"";position:absolute;inset:0;background:radial-gradient(700px 380px at 92% -10%,rgba(18,165,133,.16),transparent 60%);pointer-events:none}
+  .engine .wrap{position:relative;z-index:2}
+  .engine .sec-head h2{color:#fff}
+  .engine .sec-head h2 em{color:var(--mint-bright)}
+  .engine .sec-head p{color:#bcccc6}
+  .engine .eyebrow{color:var(--mint-bright)}
+  .wizard{margin-top:38px;background:rgba(255,255,255,.03);border:1px solid var(--panel-line);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh-3);max-width:760px}
+  .prog{display:flex;align-items:center;gap:14px;padding:18px 24px;border-bottom:1px solid var(--panel-line);font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--muted-d);letter-spacing:.04em}
+  .progbar{flex:1;height:5px;border-radius:3px;background:rgba(255,255,255,.10);overflow:hidden}
+  .progbar i{display:block;height:100%;width:20%;background:linear-gradient(90deg,var(--brand-2),var(--mint-bright));transition:width .4s cubic-bezier(.2,.7,.2,1)}
+  .step{display:none;padding:32px 28px 8px}
+  .step.active{display:block;animation:fade .35s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+  .step h3{font-size:24px;margin:0 0 5px;color:#fff;font-weight:700;letter-spacing:-.02em}
+  .step .hint{color:#aebdb7;font-size:15.5px;margin:0 0 24px;line-height:1.5}
+  .field{margin:0 0 22px}
+  .field>label{display:block;font-weight:600;font-size:15px;margin-bottom:10px;color:#eef3f0}
+  .field .sub{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--muted-d);font-weight:400;text-transform:none;letter-spacing:0}
+  select,input[type=text],input[type=number]{
+    width:100%;font-family:"Hanken Grotesk",sans-serif;font-size:16px;color:#fff;background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.16);border-radius:11px;padding:14px 15px;appearance:none;transition:border-color .15s,box-shadow .15s}
+  select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237fb3a6' stroke-width='1.6' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 15px center;padding-right:38px}
+  select:focus,input:focus{outline:none;border-color:var(--mint-bright);box-shadow:0 0 0 3px rgba(22,199,154,.22)}
+  .opts{display:grid;gap:11px}
+  .opts.cols-3{grid-template-columns:repeat(3,1fr)}
+  .opts.cols-2{grid-template-columns:repeat(2,1fr)}
+  .opt{position:relative}
+  .opt input{position:absolute;opacity:0;inset:0;cursor:pointer}
+  .opt label{display:block;cursor:pointer;border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:15px;background:rgba(255,255,255,.03);transition:.15s;height:100%}
+  .opt .ot{font-weight:600;font-size:15.5px;color:#fff}
+  .opt .od{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--muted-d);margin-top:4px;line-height:1.35}
+  .opt input:checked+label{border-color:var(--mint-bright);background:rgba(22,199,154,.12);box-shadow:0 0 0 1px var(--mint-bright) inset}
+  .opt input:focus-visible+label{outline:2px solid var(--mint-bright);outline-offset:2px}
+  .rangewrap{display:flex;align-items:center;gap:16px}
+  input[type=range]{flex:1;-webkit-appearance:none;height:6px;border-radius:3px;background:rgba(255,255,255,.16);padding:0}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--mint-bright);cursor:pointer;border:3px solid #0c1f1b;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+  input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--mint-bright);cursor:pointer;border:3px solid #0c1f1b}
+  .rangeval{font-family:"JetBrains Mono",monospace;font-weight:600;font-size:17px;min-width:92px;text-align:right;color:#fff}
+  .check{display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:14px 15px;cursor:pointer;transition:border-color .15s}
+  .check:hover{border-color:rgba(255,255,255,.3)}
+  .check input{margin-top:3px;width:18px;height:18px;accent-color:var(--mint-bright)}
+  .check .ct{font-weight:500;font-size:15px;color:#fff}
+  .check .cd{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--muted-d);display:block;margin-top:2px}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+  .berbox{display:none;margin-top:10px}
+  .berbox.show{display:block}
+  .navbtns{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:20px 28px 28px;border-top:1px solid var(--panel-line);margin-top:10px}
+  .lnk{background:none;border:0;color:#aebdb7;font-weight:500;font-size:15px;cursor:pointer;padding:8px 2px}
+  .lnk:hover{color:#fff}
+  .lnk[disabled]{opacity:.3;cursor:default}
+  .err{color:var(--ember-soft);font-family:"JetBrains Mono",monospace;font-size:12.5px;margin-top:8px;min-height:1px}
+
+  /* ---------- results ---------- */
+  .results{background:var(--bg);scroll-margin-top:72px}
+  .results[hidden]{display:none}
+  .verdict{background:var(--panel);color:#fff;border-radius:var(--r-lg);padding:34px 32px;position:relative;overflow:hidden;box-shadow:var(--sh-3)}
+  .verdict::after{content:"";position:absolute;inset:0;background:radial-gradient(560px 240px at 90% -20%,rgba(22,199,154,.22),transparent 62%);pointer-events:none}
+  .verdict .vlab{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mint-bright);position:relative;z-index:2}
+  .verdict h3{font-size:clamp(26px,4vw,38px);margin:10px 0 0;font-weight:700;position:relative;z-index:2;letter-spacing:-.03em}
+  .verdict .vwhy{color:#c6d4ce;margin:15px 0 0;max-width:60ch;position:relative;z-index:2;font-size:17px;line-height:1.55}
+  .vstats{display:flex;flex-wrap:wrap;gap:26px 44px;margin:28px 0 0;position:relative;z-index:2}
+  .vstat .n{font-family:"JetBrains Mono",monospace;font-weight:600;font-size:25px;color:#fff;letter-spacing:-.01em}
+  .vstat .n.good{color:var(--mint-bright)}
+  .vstat .l{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-d);margin-top:3px}
+  .confnote{margin:26px 0 0;font-family:"JetBrains Mono",monospace;font-size:12.5px;color:var(--muted-d);position:relative;z-index:2;padding-top:20px;border-top:1px solid var(--panel-line)}
+  .confhead{display:flex;gap:9px;align-items:center}
+  .confnote b{color:#fff;font-weight:600}
+  .confgrid{display:flex;flex-wrap:wrap;gap:7px;margin-top:13px}
+  .confgrid span{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;padding:5px 11px;border-radius:999px;border:1px solid var(--panel-line);white-space:nowrap}
+  .confgrid span.y{color:var(--mint-bright)}
+  .confgrid span.n{color:#cdb893}
+  .conftip{margin-top:12px;font-size:11.5px;color:var(--muted-d);max-width:54ch;line-height:1.5}
+  .confdot{width:9px;height:9px;border-radius:50%;background:var(--mint-bright);flex:0 0 auto}
+
+  .mistake{margin-top:20px;background:var(--ember-tint);border:1px solid #f0c9a6;border-left:4px solid var(--ember);border-radius:var(--r);padding:22px 24px}
+  .mistake h4{font-size:17px;margin:0 0 7px;color:var(--ember-ink);font-weight:700;display:flex;align-items:center;gap:9px}
+  .mistake p{margin:0;color:#6b4424;font-size:16px;line-height:1.5}
+
+  /* provisional verdict + confirm block */
+  .verdict.provisional{box-shadow:0 0 0 1px var(--gold) inset,var(--sh-3)}
+  .verdict.provisional .vlab{color:#e8c98b}
+  .confirm{margin:22px 0 0;position:relative;z-index:2;background:rgba(255,255,255,.05);border:1px solid var(--panel-line);border-radius:14px;padding:18px 20px}
+  .cflabel{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#e8c98b;font-weight:600}
+  .confirm ul{margin:11px 0 0;padding-left:18px;color:#dfe8e4}
+  .confirm li{margin:5px 0}
+  .confirm p{margin:13px 0 0;color:#bcccc6;font-size:15px;line-height:1.5}
+
+  /* route map */
+  .route{margin-top:24px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:30px 30px 14px;box-shadow:var(--sh-1)}
+  .route.provis{border-color:#e6d2ac;background:linear-gradient(180deg,#fffdf8,var(--surface))}
+  .route-head .eyebrow{color:var(--brand)}
+  .route.provis .route-head .eyebrow{color:var(--gold)}
+  .route-head h3{font-size:clamp(20px,3vw,26px);margin:10px 0 0;letter-spacing:-.025em;font-weight:700}
+  .route-econ{font-family:"JetBrains Mono",monospace;font-size:14px;color:var(--ink-soft);margin:12px 0 0}
+  .route-econ b{color:var(--brand);font-weight:600}
+  .route-econ.muted{color:var(--muted)}
+  .steps{list-style:none;margin:26px 0 0;padding:0}
+  .rstep{display:flex;gap:18px;padding:0 0 24px;position:relative}
+  .rstep::before{content:"";position:absolute;left:16px;top:34px;bottom:0;width:2px;background:var(--line-2)}
+  .rstep:last-child::before{display:none}
+  .rdot{width:34px;height:34px;border-radius:50%;flex:0 0 auto;background:var(--brand);color:#fff;font-family:"JetBrains Mono",monospace;font-weight:600;font-size:14px;display:flex;align-items:center;justify-content:center;position:relative;z-index:1}
+  .route.provis .rdot{background:var(--gold)}
+  .rbody{padding-top:4px;min-width:0}
+  .rtitle{font-weight:700;font-size:17px;letter-spacing:-.02em;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .rtag{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--brand);background:var(--brand-tint);border-radius:999px;padding:3px 9px;font-weight:500}
+  .route.provis .rtag{color:var(--gold);background:#f7eeda}
+  .rbody p{margin:6px 0 0;color:var(--ink-soft);font-size:15.5px;line-height:1.5}
+  .rcost{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--ink);margin-top:9px;display:inline-block;background:var(--surface-2);border-radius:8px;padding:5px 11px}
+
+  /* conditional verdict */
+  .verdict.conditional{box-shadow:0 0 0 1px var(--mint-bright) inset,var(--sh-3)}
+  .verdict.conditional .vlab{color:var(--mint-bright)}
+  .verdict .vwhy em{font-family:"Fraunces",Georgia,serif;font-style:italic;color:var(--mint-bright)}
+  .condition{margin:22px 0 0;position:relative;z-index:2;background:rgba(22,199,154,.08);border:1px solid rgba(22,199,154,.3);border-radius:14px;padding:18px 20px}
+  .condition .cflabel{color:var(--mint-bright)}
+  .condition ul{margin:11px 0 0;padding-left:18px;color:#dfe8e4}
+  .condition li{margin:6px 0;line-height:1.45}
+  .condition b{color:#fff;font-weight:600}
+  .condition p{margin:13px 0 0;color:#bcccc6;font-size:15px;line-height:1.5}
+
+  /* red flags panel */
+  .flags{margin-top:24px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:28px 28px 12px;box-shadow:var(--sh-1)}
+  .flags-head{display:flex;gap:15px;align-items:flex-start}
+  .fico{width:34px;height:34px;border-radius:9px;flex:0 0 auto;background:var(--ember-tint);color:var(--ember-ink);font-family:"JetBrains Mono",monospace;font-weight:600;font-size:18px;display:flex;align-items:center;justify-content:center}
+  .flags-head h3{font-size:clamp(19px,3vw,23px);margin:2px 0 0;letter-spacing:-.025em;font-weight:700}
+  .flags-head p{margin:6px 0 0;color:var(--ink-soft);font-size:15.5px;line-height:1.45}
+  .flist{margin-top:10px}
+  .flag{padding:18px 0;border-top:1px solid var(--line);display:flex;gap:14px}
+  .flag::before{content:"";flex:0 0 auto;width:8px;height:8px;border-radius:2px;background:var(--ember);margin-top:8px}
+  .fbody{min-width:0}
+  .ft{font-weight:700;font-size:16px;letter-spacing:-.015em}
+  .fd{color:var(--ink-soft);font-size:15.5px;line-height:1.5;margin-top:3px}
+
+  /* assumptions centre */
+  .assume{margin-top:24px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh-1);overflow:hidden}
+  .assume summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:20px 24px;font-weight:700;font-size:16.5px;letter-spacing:-.02em}
+  .assume summary::-webkit-details-marker{display:none}
+  .aco{color:var(--brand);margin-right:5px}
+  .achint{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:500;flex:0 0 auto}
+  .assume[open] summary{border-bottom:1px solid var(--line)}
+  .abody{padding:22px 24px 24px}
+  .ac-intro{margin:0;color:var(--ink-soft);font-size:15.5px;line-height:1.5}
+  .ac-edited{color:var(--brand)}
+  .ac-group{margin-top:22px}
+  .ac-gl{font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--brand);font-weight:600;margin-bottom:12px}
+  .ac-gl small{color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0;margin-left:4px}
+  .ac-note{margin:0 0 12px;font-size:14px;color:var(--ink-soft);background:var(--surface-2);border-radius:10px;padding:11px 13px;line-height:1.45}
+  .ac-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:13px}
+  .acf{display:flex;flex-direction:column;gap:6px}
+  .acf span{font-size:13.5px;color:var(--ink-soft);font-weight:600}
+  .acf span small{color:var(--muted);font-weight:400;font-family:"JetBrains Mono",monospace}
+  .acf input{width:100%;font-family:"JetBrains Mono",monospace;font-size:15px;color:var(--ink);background:var(--paper);border:1px solid var(--line-2);border-radius:10px;padding:11px 12px;-moz-appearance:textfield}
+  .acf input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(10,122,98,.15)}
+  .ac-read{display:grid;gap:10px}
+  .ac-read span{font-size:14.5px;color:var(--ink-soft)}
+  .ac-read b{color:var(--ink);font-weight:600}
+  .ac-read .mono{color:var(--brand)}
+  .ac-actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}
+  .ac-reset{background:none;border:0;color:var(--ink-soft);font-family:"Hanken Grotesk",sans-serif;font-weight:600;font-size:14.5px;cursor:pointer;padding:8px 4px}
+  .ac-reset:hover{color:var(--ink)}
+
+  .rlist{margin-top:32px;display:grid;gap:16px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;transition:box-shadow .18s,transform .18s,border-color .18s}
+  .card:hover{box-shadow:var(--sh-2);transform:translateY(-2px)}
+  .card.top{border-color:var(--brand);box-shadow:0 0 0 1px var(--brand) inset,0 14px 36px -20px rgba(10,122,98,.5)}
+  .chead{display:flex;align-items:flex-start;gap:15px;padding:22px 24px 17px}
+  .rank{font-family:"JetBrains Mono",monospace;font-weight:600;font-size:13px;color:#fff;background:var(--ink);width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .card.top .rank{background:var(--brand)}
+  .ctitle{flex:1;min-width:0}
+  .ctitle h4{font-size:19px;margin:0;font-weight:700;letter-spacing:-.02em}
+  .ctitle .meas{font-family:"JetBrains Mono",monospace;font-size:12.5px;color:var(--muted);margin-top:5px}
+  .badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
+  .badge{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;padding:4px 10px;border-radius:999px;border:1px solid currentColor;font-weight:500}
+  .badge.run{color:var(--brand)}
+  .badge.up{color:var(--ink-soft)}
+  .badge.green{color:#2f8f4f}
+  .badge.pay{color:var(--gold)}
+  .badge.warn{color:var(--ember);border-color:var(--ember);background:var(--ember-tint)}
+  .cfigs{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);background:var(--paper)}
+  .cfig{padding:16px 18px;border-right:1px solid var(--line)}
+  .cfig:last-child{border-right:0}
+  .cfig .k{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+  .cfig .v{font-family:"JetBrains Mono",monospace;font-weight:600;font-size:16.5px;margin-top:4px}
+  .cfig .v.run{color:var(--brand)}
+  .cfig .v.bad{color:var(--ember)}
+  .cfig .v small{font-size:11px;color:var(--muted);font-weight:400}
+  .gauge{height:6px;background:var(--surface-2);margin:0 24px;border-radius:3px;overflow:hidden}
+  .gauge i{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,var(--brand),var(--brand-2));transition:width .6s cubic-bezier(.2,.7,.2,1)}
+  .gauge.over i{background:linear-gradient(90deg,var(--ember-soft),var(--ember))}
+  .working{padding:0 24px}
+  .working details{border-top:1px solid var(--line);margin-top:6px}
+  .working summary{list-style:none;cursor:pointer;font-weight:600;font-size:14px;color:var(--brand);padding:15px 0;display:flex;align-items:center;gap:8px}
+  .working summary::-webkit-details-marker{display:none}
+  .working summary::before{content:"";width:8px;height:8px;border-right:2px solid var(--brand);border-bottom:2px solid var(--brand);transform:rotate(-45deg);transition:transform .18s;margin-left:2px}
+  details[open] summary::before{transform:rotate(45deg)}
+  .working .wbody{padding:2px 0 22px;font-size:15px;color:var(--ink-soft)}
+  .working .wbody ul{margin:6px 0 0;padding-left:18px}
+  .working .wbody li{margin:5px 0;line-height:1.5}
+  .working .wbody .warnline{color:var(--ember-ink)}
+
+  .restart{margin-top:28px;text-align:center}
+
+  /* paid report CTA — the till */
+  .report-cta{margin-top:24px;background:linear-gradient(160deg,var(--brand-tint),var(--surface));border:1px solid #cfe7df;border-radius:var(--r-lg);padding:32px 30px;text-align:center;box-shadow:var(--sh-1)}
+  .rc-tag{font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--brand);font-weight:600}
+  .report-cta h3{font-size:clamp(21px,3.4vw,28px);margin:12px 0 0;letter-spacing:-.025em;color:var(--brand-ink)}
+  .report-cta>p{margin:14px auto 0;max-width:54ch;color:var(--ink-soft);font-size:16px;line-height:1.55}
+  .report-cta .btn-primary{margin-top:22px}
+  .rc-note{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--muted);margin-top:16px}
+
+  /* grants */
+  .grants{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .gflex{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:42px}
+  .gcard{border:1px solid var(--line);border-radius:var(--r);padding:26px;background:var(--paper);transition:transform .18s,box-shadow .18s}
+  .gcard:hover{transform:translateY(-3px);box-shadow:var(--sh-2)}
+  .gcard h3{font-size:16px;margin:0 0 12px;font-weight:700;display:flex;align-items:center;gap:9px;justify-content:space-between}
+  .gcard .gtag{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:6px;font-weight:500}
+  .gcard.roi .gtag{background:#e3f3ee;color:#0c6b53}
+  .gcard.gb .gtag{background:#e7eef6;color:#274a73}
+  .gcard.ni .gtag{background:#f6ece2;color:#8a4a1f}
+  .gcard.scot .gtag{background:#ece9f6;color:#4a3f8a}
+  .gcard.scot .big{color:#5a4fa0}
+  .gcard p{margin:10px 0 0;font-size:15px;color:var(--ink-soft);line-height:1.55}
+  .gcard .big{font-family:"JetBrains Mono",monospace;font-weight:600;font-size:26px;color:var(--ink);display:block;letter-spacing:-.02em}
+  .gcard.roi .big{color:var(--brand)}
+  .gcard.ni .big{font-size:21px;color:var(--ember-ink)}
+
+  /* trust */
+  .trust .tgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:42px}
+  .titem{display:flex;gap:16px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:24px}
+  .ticon{width:40px;height:40px;border-radius:11px;background:var(--brand-tint);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .ticon svg{width:21px;height:21px;stroke:var(--brand);fill:none;stroke-width:1.7}
+  .titem h3{font-size:17px;margin:3px 0 5px;font-weight:700;letter-spacing:-.02em}
+  .titem p{margin:0;color:var(--ink-soft);font-size:15.5px;line-height:1.55}
+  .sources{margin-top:28px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;padding-top:24px;border-top:1px solid var(--line)}
+  .srclabel{font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .srclist{display:flex;flex-wrap:wrap;gap:8px}
+  .srclist span{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink-soft);background:var(--surface);border:1px solid var(--line-2);border-radius:999px;padding:5px 12px}
+
+  /* capture */
+  .capture{background:var(--panel);color:#fff;position:relative;overflow:hidden}
+  .capture::before{content:"";position:absolute;inset:0;background:radial-gradient(620px 300px at 12% 110%,rgba(18,165,133,.16),transparent 60%);pointer-events:none}
+  .capture .wrap{position:relative;z-index:2}
+  .capture h2{color:#fff;font-size:clamp(26px,4vw,38px);margin:14px 0 0;max-width:20ch;letter-spacing:-.03em}
+  .capture h2 em{font-family:"Fraunces",Georgia,serif;font-style:italic;color:var(--mint-bright);font-weight:500}
+  .capture .clede{color:#c6d4ce;max-width:56ch;margin:16px 0 0;font-size:17px;line-height:1.55}
+  .capform{margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;max-width:540px}
+  .capform input{flex:1;min-width:240px}
+  .capform .btn-primary{white-space:nowrap;box-shadow:none}
+  .capnote{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--muted-d);margin-top:16px}
+
+  footer{background:var(--bg);border-top:1px solid var(--line);padding:50px 0;font-size:14.5px;color:var(--muted)}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:22px;justify-content:space-between;align-items:flex-start}
+  footer .fbrand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:17px;color:var(--ink);letter-spacing:-.03em}
+  footer .disc{max-width:64ch;font-size:13px;line-height:1.65}
+  footer a{color:var(--ink-soft);text-decoration:none}
+  footer a:hover{color:var(--ink)}
+  .flinks{display:flex;gap:18px;flex-wrap:wrap;font-size:13.5px;margin-top:4px}
+
+  @media(max-width:880px){
+    .hero .wrap{grid-template-columns:1fr;gap:40px;padding:56px 24px 64px}
+    .readout{order:2}
+    section{padding:64px 0}
+    .pgrid,.gflex,.trust .tgrid,.vstats{grid-template-columns:1fr}
+    .cfigs{grid-template-columns:1fr 1fr}
+    .cfig:nth-child(2){border-right:0}
+    .cfig:nth-child(1),.cfig:nth-child(2){border-bottom:1px solid var(--line)}
+    .row2{grid-template-columns:1fr}
+    .opts.cols-3{grid-template-columns:1fr}
+    .bar nav a.nl{display:none}
+    .founder{flex-direction:column;gap:8px;padding:26px 24px}
+    .founder .qmark{font-size:44px}
+  }
+  @media(max-width:560px){
+    body{font-size:16.5px}
+    .brand{font-size:16px}
+    .brand small{display:none}
+    .seal{width:27px;height:27px}
+    .bar nav{gap:0}
+    .bar a.cta{padding:9px 14px;font-size:13.5px}
+    .cta-full{display:none}
+    .cta-short{display:inline}
+    .hero .wrap{padding:40px 20px 50px}
+    h1.hh{font-size:clamp(29px,8.4vw,40px)}
+    .ro-row{flex-wrap:wrap;align-items:baseline}
+    .ro-name{flex:1 1 auto}
+    .ro-fig{flex:1 1 100%;text-align:left;padding-left:38px;margin-top:4px;white-space:normal;font-size:13.5px}
+    .ro-sub{line-height:1.45}
+    .founder p{font-size:18.5px}
+  }
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<header class="bar">
+  <div class="wrap">
+    <div class="brand">
+      <span class="seal"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      My Energy Engine <small>honest · independent</small>
+    </div>
+    <nav>
+      <a href="#how" class="nl">How it works</a>
+      <a href="#grants" class="nl">Grants</a>
+      <a href="#start" class="cta"><span class="cta-full">Get my honest report</span><span class="cta-short">Get report</span></a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hcopy">
+      <span class="hgrip"><b></b> Independent, UK and Ireland. What should I do with my home?</span>
+      <h1 class="hh">The home-energy advice <em>that can't be bought.</em></h1>
+      <p class="lede">Every energy site is quietly selling something. The heat-pump company recommends a heat pump. The solar company recommends solar. We're neither — we show you your honest best options, and the working behind every number.</p>
+      <div class="hero-cta">
+        <a href="#start" class="btn btn-primary">Check my home — it's free →</a>
+        <a href="#how" class="btn btn-ghost">How it works</a>
+      </div>
+      <div class="htrust">
+        <span>No installer pays to rank</span>
+        <span>No technology favoured</span>
+        <span>Every figure traceable</span>
+      </div>
+    </div>
+
+    <div class="readout reveal" aria-hidden="true">
+      <div class="ro-top">
+        <span class="rl">Example readout</span>
+        <span class="ro-live"><i></i> live engine</span>
+      </div>
+      <div class="ro-sub">140m² oil-heated home · Republic of Ireland</div>
+      <div class="ro-row best">
+        <span class="ro-rank">1</span>
+        <span class="ro-name"><span class="nm">Insulate, then heat pump</span><span class="tg">best overall</span></span>
+        <span class="ro-fig">€2,600 net · <b>save €2,587/yr</b></span>
+      </div>
+      <div class="ro-row">
+        <span class="ro-rank">2</span>
+        <span class="ro-name"><span class="nm">Keep the oil boiler</span><span class="tg">lowest upfront</span></span>
+        <span class="ro-fig">€0 · €5,960/yr</span>
+      </div>
+      <div class="ro-row bad">
+        <span class="ro-rank">!</span>
+        <span class="ro-name"><span class="nm">Heat pump now, no insulation</span><span class="tg">the costly mistake</span></span>
+        <span class="ro-fig">bills go <b>UP €350/yr</b></span>
+      </div>
+      <div class="ro-foot">Same house. The order you do things in is worth thousands.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE ENGINE / WIZARD ============ -->
+<section class="engine" id="start">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">The engine</span>
+      <h2>Tell us about your house. <em>We'll do the maths in the open.</em></h2>
+      <p>Around a dozen questions. No sign-up to see your results. Every answer changes the numbers — and you can see exactly how.</p>
+    </div>
+
+    <form class="wizard reveal" id="wiz" novalidate>
+      <div class="prog">
+        <span id="stepLabel">Step 1 of 5</span>
+        <div class="progbar"><i id="progFill"></i></div>
+        <span id="stepName">Location</span>
+      </div>
+
+      <!-- STEP 1 -->
+      <div class="step active" data-step="1">
+        <h3>Where is the home?</h3>
+        <p class="hint">Grants and energy prices differ completely across these three. This is the first thing that changes your answer.</p>
+        <div class="field">
+          <div class="opts cols-2" role="radiogroup">
+            <div class="opt"><input type="radio" name="region" id="r-roi" value="ROI"><label for="r-roi"><div class="ot">Republic of Ireland</div><div class="od">SEAI grants · €</div></label></div>
+            <div class="opt"><input type="radio" name="region" id="r-ni" value="NI"><label for="r-ni"><div class="ot">Northern Ireland</div><div class="od">NISEP only · £</div></label></div>
+            <div class="opt"><input type="radio" name="region" id="r-gb" value="GB"><label for="r-gb"><div class="ot">England &amp; Wales</div><div class="od">Boiler Upgrade Scheme · £</div></label></div>
+            <div class="opt"><input type="radio" name="region" id="r-scot" value="SCOT"><label for="r-scot"><div class="ot">Scotland</div><div class="od">Home Energy Scotland · £</div></label></div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Eircode or postcode <span class="sub">optional — we'll use it later to pull your BER/EPC and solar potential automatically</span></label>
+          <input type="text" name="postcode" autocomplete="postal-code" placeholder="e.g. F93 X253 or BT82 8AA">
+        </div>
+        <div class="err" id="err1"></div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step" data-step="2">
+        <h3>The basics of the building</h3>
+        <p class="hint">Floor area and age set how much heat your home loses. A slider is fine — you don't need to be exact.</p>
+        <div class="field">
+          <label>Property type</label>
+          <select name="ptype">
+            <option value="detached">Detached house</option>
+            <option value="semi">Semi-detached house</option>
+            <option value="terrace">Terraced / townhouse</option>
+            <option value="bungalow">Bungalow</option>
+            <option value="apartment">Apartment</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Total floor area <span class="sub">all heated floors</span></label>
+          <div class="rangewrap">
+            <input type="range" name="area" min="40" max="400" step="5" value="130" id="area">
+            <div class="rangeval"><span id="areaVal">130</span> m²</div>
+          </div>
+        </div>
+        <div class="field">
+          <label>When was it built?</label>
+          <select name="era">
+            <option value="pre1980">Before 1980</option>
+            <option value="1980-1990">1980 – 1990</option>
+            <option value="1991-2005" selected>1991 – 2005</option>
+            <option value="2006-2010">2006 – 2010</option>
+            <option value="post2011">2011 – 2020</option>
+            <option value="newbuild">New build (2021 or later)</option>
+          </select>
+        </div>
+        <div class="err" id="err2"></div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step" data-step="3">
+        <h3>How it's built &amp; insulated</h3>
+        <p class="hint">This is what makes or breaks a heat pump. If you have a BER or EPC certificate, even better — it overrides our estimate.</p>
+        <div class="field">
+          <label>Wall construction</label>
+          <select name="construction">
+            <option value="cavity">Cavity wall (unfilled)</option>
+            <option value="cavity-filled">Cavity wall (already filled)</option>
+            <option value="solid">Solid / stone wall</option>
+            <option value="timber">Timber frame</option>
+            <option value="icf">ICF / modern airtight</option>
+            <option value="unknown">Not sure</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>How well insulated does it feel?</label>
+          <div class="opts cols-2">
+            <div class="opt"><input type="radio" name="insulation" id="i-poor" value="poor"><label for="i-poor"><div class="ot">Draughty &amp; cold</div><div class="od">hard to heat, cools fast</div></label></div>
+            <div class="opt"><input type="radio" name="insulation" id="i-some" value="some" checked><label for="i-some"><div class="ot">Average</div><div class="od">some insulation, room to improve</div></label></div>
+            <div class="opt"><input type="radio" name="insulation" id="i-good" value="good"><label for="i-good"><div class="ot">Pretty warm</div><div class="od">holds heat well</div></label></div>
+            <div class="opt"><input type="radio" name="insulation" id="i-exc" value="excellent"><label for="i-exc"><div class="ot">Toasty &amp; airtight</div><div class="od">modern standard</div></label></div>
+          </div>
+        </div>
+        <div class="field">
+          <label class="check" style="cursor:pointer"><input type="checkbox" id="berToggle"><span><span class="ct">I know my BER / EPC rating</span><span class="cd">tick to enter it — it makes your result far more accurate</span></span></label>
+          <div class="berbox" id="berbox">
+            <label style="font-weight:600;font-size:14px;display:block;margin-bottom:8px;color:#eef3f0">Energy rating</label>
+            <select name="ber">
+              <option value="">— select band —</option>
+              <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+              <option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option>
+            </select>
+          </div>
+        </div>
+        <div class="err" id="err3"></div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="step" data-step="4">
+        <h3>How it's heated today</h3>
+        <p class="hint">Your current system is the baseline everything is measured against. If you know your yearly heating spend, pop it in — we'll anchor the whole result to your real bill.</p>
+        <div class="field">
+          <label>Main heating right now</label>
+          <select name="heating">
+            <option value="oil">Oil boiler</option>
+            <option value="gas">Mains gas boiler</option>
+            <option value="lpg">LPG boiler</option>
+            <option value="pellet">Wood pellet / biomass</option>
+            <option value="solid">Solid fuel / open fire / stove</option>
+            <option value="electric">Electric storage heaters</option>
+            <option value="hp">Heat pump (already)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Roughly what do you spend a year on heating? <span class="sub">optional — oil, gas or the heating share of your bill</span></label>
+          <input type="number" name="spend" min="0" step="50" placeholder="e.g. 2400" inputmode="numeric">
+        </div>
+        <div class="err" id="err4"></div>
+      </div>
+
+      <!-- STEP 5 -->
+      <div class="step" data-step="5">
+        <h3>You, and what matters to you</h3>
+        <p class="hint">The "best" option depends on what you're optimising for. Tell us, and we'll weight the ranking accordingly.</p>
+        <div class="row2">
+          <div class="field">
+            <label>People living here</label>
+            <input type="number" name="occupants" min="1" max="10" value="3" inputmode="numeric">
+          </div>
+          <div class="field">
+            <label>Budget for upfront work</label>
+            <select name="budget">
+              <option value="3000">Under €/£3,000</option>
+              <option value="15000" selected>€/£3,000 – 15,000</option>
+              <option value="30000">€/£15,000 – 30,000</option>
+              <option value="999999">Whatever pays off best</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label style="margin-bottom:10px">Anything already in place?</label>
+          <div class="opts cols-2">
+            <label class="check"><input type="checkbox" name="ev"><span><span class="ct">I have / plan an EV</span><span class="cd">changes solar &amp; tariff maths</span></span></label>
+            <label class="check"><input type="checkbox" name="solarAlready"><span><span class="ct">I already have solar</span><span class="cd">we won't recommend it again</span></span></label>
+          </div>
+        </div>
+        <div class="field">
+          <label>What matters most to you?</label>
+          <div class="opts cols-3">
+            <div class="opt"><input type="radio" name="priority" id="p-cost" value="cost" checked><label for="p-cost"><div class="ot">Lowest cost</div><div class="od">bills &amp; payback</div></label></div>
+            <div class="opt"><input type="radio" name="priority" id="p-green" value="green"><label for="p-green"><div class="ot">Greenest</div><div class="od">cut carbon most</div></label></div>
+            <div class="opt"><input type="radio" name="priority" id="p-simple" value="simple"><label for="p-simple"><div class="ot">Least hassle</div><div class="od">simple &amp; future-proof</div></label></div>
+          </div>
+        </div>
+        <div class="err" id="err5"></div>
+      </div>
+
+      <div class="navbtns">
+        <button type="button" class="lnk" id="backBtn" disabled>← Back</button>
+        <button type="button" class="btn btn-primary" id="nextBtn">Next →</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ============ RESULTS ============ -->
+<section class="results" id="results" hidden>
+  <div class="wrap">
+    <span class="eyebrow">Your honest options</span>
+    <div id="verdictMount"></div>
+    <div id="mistakeMount"></div>
+    <div id="routeMount"></div>
+    <div id="flagsMount"></div>
+    <div class="rlist" id="rlist"></div>
+    <div id="assumeMount"></div>
+    <div class="report-cta">
+      <span class="rc-tag">The £20 Second Opinion</span>
+      <h3>Want this as a report you can take to installers?</h3>
+      <p>A complete, independent PDF: your route in order, every cost and grant, the quote red-flags to watch for, the exact questions to ask installers, and the assumptions behind every number. The thing to read before you spend tens of thousands.</p>
+      <button type="button" class="btn btn-primary" onclick="buyReport()">Get my full report — £20 →</button>
+      <p class="rc-note">One-off — no subscription. Independent: the report can't be bought by installers, only by you.</p>
+    </div>
+    <div class="restart">
+      <button type="button" class="btn btn-ghost" id="restartBtn">↺ Change my answers</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROBLEM ============ -->
+<section class="problem">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">The gap</span>
+      <h2>The information felt like a secret <em>nobody wanted to share.</em></h2>
+      <p>It's one of the biggest, least-reversible decisions a household makes — and almost everyone you can ask has something to sell. So people guess, copy a neighbour, or trust whoever quoted last. That's how expensive mistakes get made.</p>
+    </div>
+    <div class="pgrid">
+      <div class="pcard reveal">
+        <div class="picon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9.5a3 3 0 1 1 4 2.8c-.7.4-1 .9-1 1.7"/><path d="M12 17.5v.01"/></svg></div>
+        <h3>Everyone's biased by design</h3><p>An installer's job is to sell their kit. A grant site lists whatever grant exists. None of them are paid to tell you that doing nothing might be your smartest move this year.</p>
+      </div>
+      <div class="pcard reveal">
+        <div class="picon"><svg viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/><path d="M4 4l16 16"/></svg></div>
+        <h3>The numbers are hidden</h3><p>"Heat pumps are cheaper to run" — until they aren't, in a leaky house. Real running costs depend on your walls, your fuel price and your habits. Nobody shows the working.</p>
+      </div>
+      <div class="pcard reveal">
+        <div class="picon"><svg viewBox="0 0 24 24"><path d="M4 19V7l8-4 8 4v12"/><path d="M4 19h16"/><path d="M9 19v-5h6v5"/></svg></div>
+        <h3>The grants are a maze</h3><p>What you can claim flips completely depending on which side of a border you live on. The same house can be worth €12,500 in grants in the South and almost nothing in the North.</p>
+      </div>
+      <div class="pcard reveal">
+        <div class="picon"><svg viewBox="0 0 24 24"><path d="M3 12h4l2 6 4-12 2 6h6"/></svg></div>
+        <h3>The order matters most</h3><p>The single biggest mistake is doing the right things in the wrong order — fitting a heat pump before insulating. We put sequencing first, because that's where the money is lost.</p>
+      </div>
+    </div>
+    <div class="founder reveal">
+      <span class="qmark">&ldquo;</span>
+      <div>
+        <p>After building my own house, I realised nobody would give a straight answer about heating — every answer came with a sales pitch attached. So I built the tool I wish I'd had: independent, plain-spoken, and on your side of the table.</p>
+        <cite>— Why I built this</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GRANTS ============ -->
+<section class="grants" id="grants">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">The border truth</span>
+      <h2>The same house, <em>four different worlds.</em></h2>
+      <p>Grant support for the exact same upgrade changes dramatically depending on where you live. My Energy Engine always uses the rules for your jurisdiction — and tells you plainly when you're getting the short end.</p>
+    </div>
+    <div class="gflex">
+      <div class="gcard roi reveal"><h3>Republic of Ireland <span class="gtag">SEAI</span></h3><span class="big">up to €12,500</span><p>Heat-pump grant (system + central heating + €4,000 renewable-heat bonus for ditching fossil fuel). Plus attic ~€2,000, cavity ~€1,800, solar €1,800. The most generous package these islands have ever seen.</p></div>
+      <div class="gcard scot reveal"><h3>Scotland <span class="gtag">HES</span></h3><span class="big">up to £9,000</span><p>Home Energy Scotland — not the Boiler Upgrade Scheme. A £7,500 heat-pump grant (£9,000 rural/island), not means-tested, plus an interest-free loan for the rest and insulation funded up to 75%. Quietly the best deal in Great Britain.</p></div>
+      <div class="gcard gb reveal"><h3>England &amp; Wales <span class="gtag">BUS</span></h3><span class="big">£7,500</span><p>Boiler Upgrade Scheme for an air- or ground-source heat pump — rising to £9,000 for off-gas oil/LPG homes from July 2026. Biomass £5,000 in rural off-gas homes. Insulation via means-tested ECO4.</p></div>
+      <div class="gcard ni reveal"><h3>Northern Ireland <span class="gtag">NISEP</span></h3><span class="big">Means-tested only</span><p>No Boiler Upgrade Scheme, no SEAI. NISEP help exists but is income-assessed (roughly under £28k single / £35k household), so many owner-occupiers qualify for little beyond 0% VAT. The honest gap we'll never hide from you.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST / METHOD ============ -->
+<section class="trust" id="how">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Why you can trust the number</span>
+      <h2>Independence isn't a slogan here. <em>It's how the engine is wired.</em></h2>
+      <p>Trust is easy to claim and hard to prove. Here's exactly how My Energy Engine stays on your side.</p>
+    </div>
+    <div class="tgrid">
+      <div class="titem reveal">
+        <div class="ticon"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.4-3 8-7 9-4-1-7-4.6-7-9V6l7-3Z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <div><h3>The recommendation can't be bought</h3><p>The ranking is a fixed model of physics and economics. No installer, supplier or advertiser can move their result up. The maths runs the same for everyone.</p></div>
+      </div>
+      <div class="titem reveal">
+        <div class="ticon"><svg viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <div><h3>We show the working</h3><p>Every option opens up to reveal the assumptions — your fuel price, heat demand, efficiency, grant. If you disagree with an input, you can see it and change it.</p></div>
+      </div>
+      <div class="titem reveal">
+        <div class="ticon"><svg viewBox="0 0 24 24"><path d="M4 18V9M9 18V5M14 18v-6M19 18v-9"/><path d="M3 21h18"/></svg></div>
+        <div><h3>We use ranges, not false precision</h3><p>Nobody can predict your bill to the euro. We give honest ranges and tell you what would tighten them — like adding your real BER.</p></div>
+      </div>
+      <div class="titem reveal">
+        <div class="ticon"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/><circle cx="12" cy="12" r="9"/></svg></div>
+        <div><h3>"Do nothing" is allowed to win</h3><p>Sometimes keeping your boiler one more year is the right call. A tool that can never recommend that isn't advising you — it's selling to you.</p></div>
+      </div>
+    </div>
+
+    <div class="sources reveal">
+      <span class="srclabel">Built on official sources</span>
+      <div class="srclist"><span>SEAI</span><span>Ofgem</span><span>Utility Regulator</span><span>MCS</span><span>BER / EPC bands</span><span>Gov.ie &amp; Gov.uk grants</span></div>
+    </div>
+  </div>
+</section>
+<!-- ============ EMAIL CAPTURE ============ -->
+<section class="capture" id="report">
+  <div class="wrap">
+    <span class="eyebrow panel-eyebrow">Take it to your installer</span>
+    <h2>Get your <em>free</em> independent energy report as a PDF.</h2>
+    <p class="clede">A one-page, jargon-free report you can hand to any installer to get honest quotes — with your options, costs, grants and the questions to ask. We'll send it over and let you know when auto-fill from your Eircode/postcode goes live.</p>
+    <!-- Formspree: replace your-id with your real form ID -->
+    <form class="capform" action="https://formspree.io/f/your-id" method="POST">
+      <input type="email" name="email" placeholder="you@email.com" required autocomplete="email">
+      <button type="submit" class="btn btn-primary">Send my report →</button>
+    </form>
+    <p class="capnote">No spam, no reselling your details. One email with your report, the odd genuinely useful update.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="fbrand">
+        <span class="seal" style="width:26px;height:26px"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        My Energy Engine
+      </div>
+      <div class="flinks">
+        <a href="#how">How it works</a><a href="#grants">Grants</a><a href="#start">Check my home</a>
+      </div>
+    </div>
+    <p class="disc">My Energy Engine is an independent guidance tool, not a substitute for a site survey by a qualified installer or a SEAI/MCS technical assessment. Figures are indicative estimates based on typical 2026 grants and energy prices and your answers; your actual costs will vary. My Energy Engine is not affiliated with SEAI, Ofgem, the Utility Regulator or any installer. Our recommendations cannot be bought: we may earn from clearly labelled adverts, reports or referrals, but those relationships never change your ranking or what we tell you to do. Grant amounts and energy prices change — always confirm current figures before committing. © 2026 My Energy Engine.</p>
+  </div>
+</footer>
+
+<script src="engine.js"></script>
+<script>
+"use strict";
+/* ---------------- UI ---------------- */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+let step=1; const TOTAL=5;
+const names=["Location","The building","Fabric","Heating","You"];
+
+$("#area").addEventListener("input",e=>{$("#areaVal").textContent=e.target.value;});
+$("#berToggle").addEventListener("change",e=>{$("#berbox").classList.toggle("show",e.target.checked);});
+
+function show(n){
+  $$(".step").forEach(s=>s.classList.toggle("active",+s.dataset.step===n));
+  $("#progFill").style.width=(n/TOTAL*100)+"%";
+  $("#stepLabel").textContent=`Step ${n} of ${TOTAL}`;
+  $("#stepName").textContent=names[n-1];
+  $("#backBtn").disabled=n===1;
+  $("#nextBtn").textContent=n===TOTAL?"See my honest options →":"Next →";
+}
+function val(name){const el=document.querySelector(`[name="${name}"]`);return el?el.value:"";}
+function radio(name){const el=document.querySelector(`[name="${name}"]:checked`);return el?el.value:"";}
+
+function validate(n){
+  const e=$("#err"+n); e.textContent="";
+  if(n===1&&!radio("region")){e.textContent="Pick where the home is to continue.";return false;}
+  if(n===3&&!radio("insulation")){e.textContent="Give us a rough sense of insulation.";return false;}
+  if(n===5&&!radio("priority")){e.textContent="Tell us what matters most.";return false;}
+  return true;
+}
+
+$("#nextBtn").addEventListener("click",()=>{
+  if(!validate(step))return;
+  if(step<TOTAL){step++;show(step);$("#start").scrollIntoView({behavior:"smooth",block:"start"});}
+  else run();
+});
+$("#backBtn").addEventListener("click",()=>{if(step>1){step--;show(step);}});
+$("#restartBtn").addEventListener("click",()=>{
+  currentOverrides=null;
+  $("#results").hidden=true;step=1;show(1);$("#start").scrollIntoView({behavior:"smooth"});
+});
+
+let currentInput=null, currentOverrides=null;
+
+/* ===== PAID REPORT =====
+   Paste your Stripe / Gumroad payment link below. Set its success/redirect URL
+   to .../report.html. Leave blank to preview the report directly (no payment). */
+const REPORT_CHECKOUT_URL="https://buy.stripe.com/3cI7sL3Qh5v86kP06zaR200";
+function buyReport(){
+  if(!currentInput)return;
+  const payload={input:currentInput,overrides:currentOverrides,t:Date.now()};
+  try{localStorage.setItem("mee_report",JSON.stringify(payload));}catch(e){}
+  let d="";
+  try{d=btoa(encodeURIComponent(JSON.stringify(payload)));}catch(e){}
+  if(REPORT_CHECKOUT_URL){window.location.href=REPORT_CHECKOUT_URL;}
+  else{window.location.href="report.html"+(d?("?d="+d):"");}
+}
+
+function run(){
+  const input={
+    region:radio("region"), postcode:val("postcode"),
+    ptype:val("ptype"), area:+val("area"), era:val("era"),
+    construction:val("construction"), insulation:radio("insulation"),
+    ber:$("#berToggle").checked?val("ber"):"",
+    heating:val("heating"), spend:+val("spend")||0,
+    occupants:Math.max(1,+val("occupants")||3),
+    ev:document.querySelector('[name="ev"]').checked,
+    solarAlready:document.querySelector('[name="solarAlready"]').checked,
+    budget:+val("budget"), priority:radio("priority")
+  };
+  currentInput=input; currentOverrides=null;
+  const res=assess(input,null);
+  render(res,input);
+  $("#results").hidden=false;
+  $("#results").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+/* Assumptions Centre: recalculate with the user's edited numbers */
+function acRecalc(){
+  if(!currentInput)return;
+  const num=id=>{const el=document.getElementById(id);if(!el)return null;const v=parseFloat(el.value);return isNaN(v)?null:v;};
+  const ov={elec:num('ac-elec'), fuelPrice:num('ac-fuel'), grants:{}};
+  document.querySelectorAll('[data-grant]').forEach(el=>{const v=parseFloat(el.value);if(!isNaN(v))ov.grants[el.getAttribute('data-grant')]=v;});
+  currentOverrides=ov;
+  render(assess(currentInput,currentOverrides),currentInput);
+  const m=document.getElementById('assumeMount'); if(m)m.scrollIntoView({behavior:"smooth",block:"center"});
+}
+function acReset(){
+  if(!currentInput)return;
+  currentOverrides=null;
+  render(assess(currentInput,null),currentInput);
+  const m=document.getElementById('assumeMount'); if(m)m.scrollIntoView({behavior:"smooth",block:"center"});
+}
+
+const money=(c,n)=>c+Math.round(n).toLocaleString();
+function rng(c,n,b){const lo=Math.round(n*(1-b)/10)*10,hi=Math.round(n*(1+b)/10)*10;return `${c}${lo.toLocaleString()}–${c}${hi.toLocaleString()}`;}
+
+function render(res,input){
+  const c=res.cur,b=res.best;
+  // verdict tier: three honest outcomes
+  const saveTxt=b.save>0?`save ~${money(c,b.save)}/yr`:(b.key==="keep"?"no change to your bills":`bills change by ${money(c,b.save)}/yr`);
+  const hpInvolved=["hp","insul_hp","full"].includes(b.key);
+  const notEnough=hpInvolved && res.conf.label==="Indicative" && !input.ber;
+  const conditional=!notEnough && hpInvolved && res.conf.label==="Good confidence";
+
+  const confnote=`
+      <div class="confnote">
+        <div class="confhead"><span class="confdot"></span><b>${res.conf.label}</b> — figures shown as ranges, not exact predictions.</div>
+        <div class="confgrid">
+          ${res.conf.have.map(x=>`<span class="y">✔ ${x}</span>`).join("")}
+          ${res.conf.missing.map(x=>`<span class="n">✖ ${x}</span>`).join("")}
+        </div>
+        ${res.conf.missing.length?`<div class="conftip">The ✖ items are what a full survey adds. Supply what you can and your range tightens — we never invent a precision we don't have.</div>`:""}
+      </div>`;
+
+  const statsBlock=`
+      <div class="vstats">
+        <div class="vstat"><div class="n">${b.net===0?"—":money(c,b.net)}</div><div class="l">Upfront after grant</div></div>
+        <div class="vstat"><div class="n good">${rng(c,b.running,res.conf.band)}</div><div class="l">To run / year</div></div>
+        <div class="vstat"><div class="n ${b.save>0?'good':''}">${b.save>0?money(c,b.save):"—"}</div><div class="l">Saved / year</div></div>
+        <div class="vstat"><div class="n">${b.payback?b.payback.toFixed(1)+" yrs":"—"}</div><div class="l">Payback</div></div>
+        <div class="vstat"><div class="n good">${Math.round(Math.max(0,b.co2Save)/1000*10)/10} t</div><div class="l">CO₂ cut / year</div></div>
+      </div>`;
+
+  if(notEnough){
+    $("#verdictMount").innerHTML=`
+    <div class="verdict provisional">
+      <div class="vlab">Not enough to commit — a decision this size deserves better than a guess</div>
+      <h3>It points toward "${b.label}" — but we won't tell you to spend yet</h3>
+      <p class="vwhy">On your answers so far, this is the likely direction. But without your energy rating, the heat-loss estimate is too rough to spend real money on. Most calculators hide that. We'd rather say it out loud.</p>
+      <div class="confirm">
+        <div class="cflabel">Confirm these before committing</div>
+        <ul>${res.conf.missing.map(x=>`<li>${x}</li>`).join("")}</ul>
+        <p>The quickest win is a BER/EPC certificate — it pins down your home's real heat loss and unlocks the right grants. Add it above and re-run for a firm answer.</p>
+      </div>
+      ${confnote}
+    </div>`;
+  } else if(conditional){
+    $("#verdictMount").innerHTML=`
+    <div class="verdict conditional">
+      <div class="vlab">Conditional — a qualified yes for "${({cost:"lowest cost",green:"greenest",simple:"least hassle"})[input.priority]}" in ${res.regionName}</div>
+      <h3>${b.label}</h3>
+      <p class="vwhy">${b.measures.join(" + ")}. On a band-${res.band} home this is the right direction — but it only delivers the numbers below <em>if</em> the detail checks out on site.</p>
+      ${statsBlock}
+      <div class="condition">
+        <div class="cflabel">This holds — provided</div>
+        <ul>
+          <li>A room-by-room <b>heat-loss survey</b> confirms the demand (not just floor area).</li>
+          <li>Your <b>radiators are sized</b> for a heat pump's cooler water — expect a few to need upsizing.</li>
+          <li>Your real BER/EPC matches our estimate of band ${res.band}.</li>
+        </ul>
+        <p>Insist on these in any quote. If an installer skips them, that's a red flag — see below.</p>
+      </div>
+      ${confnote}
+    </div>`;
+  } else {
+    $("#verdictMount").innerHTML=`
+    <div class="verdict">
+      <div class="vlab">Clear recommendation for "${({cost:"lowest cost",green:"greenest",simple:"least hassle"})[input.priority]}" in ${res.regionName}</div>
+      <h3>${b.label}</h3>
+      <p class="vwhy">${b.measures.join(" + ")}. Based on a band-${res.band} home${input.spend?` and your ~${money(c,input.spend)}/yr heating spend`:""}, this is the option that best fits what you told us matters most.</p>
+      ${statsBlock}
+      ${confnote}
+    </div>`;
+  }
+
+  // mistake
+  $("#mistakeMount").innerHTML = res.mistake ? `
+    <div class="mistake">
+      <h4>⚠ The mistake to avoid</h4>
+      <p>${res.mistake.warn}</p>
+    </div>` : "";
+
+  // route map
+  const route=routeFor(res,input);
+  $("#routeMount").innerHTML = route.steps.length ? `
+    <div class="route ${notEnough?'provis':''}">
+      <div class="route-head">
+        <span class="eyebrow">${notEnough?'Provisional route':(b.key==='keep'?'Your call':'Your route — in order')}</span>
+        <h3>${b.key==='keep'?'No major work needed yet':'Do it in this order — the sequence is where the money is'}</h3>
+        ${(!notEnough && b.key!=='keep' && route.totalSave>0)?`<p class="route-econ"><b>~${money(c,route.totalNet)} after grants</b> all-in · saves ~${money(c,route.totalSave)}/yr once complete</p>`:''}
+        ${notEnough?`<p class="route-econ muted">Costs and savings firm up once you confirm the basics above — this is the likely shape of the plan.</p>`:''}
+      </div>
+      <ol class="steps">
+        ${route.steps.map((s,i)=>`
+          <li class="rstep">
+            <span class="rdot">${i+1}</span>
+            <div class="rbody">
+              <div class="rtitle">${s.title}${s.tag?`<span class="rtag">${s.tag}</span>`:''}</div>
+              <p>${s.detail}</p>
+              ${s.cost?`<div class="rcost">${s.cost}</div>`:''}
+            </div>
+          </li>`).join("")}
+      </ol>
+    </div>` : "";
+
+  // red flags — watch out for this
+  const flags=redFlags(res,input);
+  $("#flagsMount").innerHTML = flags.length ? `
+    <div class="flags">
+      <div class="flags-head">
+        <span class="fico">!</span>
+        <div><h3>Before you get quotes — watch out for this</h3><p>The same honest engine, turned on the installers. If a quote shows any of these, ask hard questions first.</p></div>
+      </div>
+      <div class="flist">
+        ${flags.map(f=>`<div class="flag"><div class="fbody"><div class="ft">${f.t}</div><div class="fd">${f.d}</div></div></div>`).join("")}
+      </div>
+    </div>` : "";
+
+  // list
+  const baseRun=res.baseRun;
+  $("#rlist").innerHTML=res.list.map((s,i)=>{
+    const isTop=s===b;
+    const over=s.running>baseRun;
+    const gp=Math.min(100,Math.round(s.running/ (baseRun*1.05) *100));
+    const badges=s.badges.map(x=>`<span class="badge ${x[0]}">${x[1]}</span>`).join("")
+      +(s.warn?`<span class="badge warn">costly trap</span>`:"");
+    return `
+    <div class="card ${isTop?'top':''}">
+      <div class="chead">
+        <div class="rank">${i+1}</div>
+        <div class="ctitle">
+          <h4>${s.label}</h4>
+          <div class="meas">${s.measures.join(" · ")}</div>
+          ${badges?`<div class="badges">${badges}</div>`:""}
+        </div>
+      </div>
+      <div class="cfigs">
+        <div class="cfig"><div class="k">Upfront after grant</div><div class="v">${s.net===0?"—":money(c,s.net)}</div></div>
+        <div class="cfig"><div class="k">To run / yr</div><div class="v ${over?'bad':'run'}">${rng(c,s.running,res.conf.band)}</div></div>
+        <div class="cfig"><div class="k">Saving / yr</div><div class="v ${s.save<0?'bad':''}">${s.save>0?money(c,s.save):(s.save<0?money(c,s.save):"—")}</div></div>
+        <div class="cfig"><div class="k">Payback</div><div class="v">${s.payback?s.payback.toFixed(1)+"y":"—"}</div></div>
+      </div>
+      <div class="gauge ${over?'over':''}"><i style="width:${gp}%"></i></div>
+      <div class="working">
+        <details>
+          <summary>Show the working</summary>
+          <div class="wbody">
+            <ul>${s.work.map(w=>`<li class="${w.indexOf('⚠')>=0?'warnline':''}">${w}</li>`).join("")}</ul>
+            <div style="margin-top:10px;font-family:'JetBrains Mono';font-size:12.5px;color:var(--muted)">
+              Grant applied: ${s.grant>0?money(c,s.grant):"none"} · Carbon ~${Math.round(s.co2/1000*10)/10} t/yr
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>`;
+  }).join("");
+
+  // Assumptions Centre — every number, visible and editable
+  const a=res.assumptions;
+  const gLabels={hpSystem:"Heat-pump system grant",hpCentral:"Central-heating bonus",hpBonus:"Fossil-switch bonus",hpOffGas:"Off-gas heat-pump grant",biomass:"Biomass grant",solar:"Solar PV grant",attic:"Attic insulation grant",cavity:"Cavity insulation grant"};
+  const gKeys=({ROI:["hpSystem","hpCentral","hpBonus","solar","attic","cavity"],GB:["hpSystem","hpOffGas","biomass"],SCOT:["hpSystem","attic","cavity"],NI:["hpSystem","attic","solar"]})[a.region]||[];
+  const acCur=a.cur;
+  const showFuel=["oil","gas","lpg","pellet","solid"].includes(a.fuelKey);
+  const fuelStep=a.fuelUnit==="/L"?"0.01":"0.005";
+  const niNote=a.region==="NI"?`<p class="ac-note">Northern Ireland has no standard grants for most owners, so these default to £0. If you qualify for NISEP or Affordable Warmth support, enter what you'd actually get and recalculate.</p>`:"";
+  $("#assumeMount").innerHTML=`
+    <details class="assume"${currentOverrides?" open":""}>
+      <summary><span><span class="aco">⚙</span> The numbers behind your result — see and edit every one</span><span class="achint">${currentOverrides?"edited":"open"}</span></summary>
+      <div class="abody">
+        <p class="ac-intro">These are the 2026 figures the engine used. Don't agree with our oil price, or know your real grant? Change it and recalculate — the whole result updates.${currentOverrides?` <b class="ac-edited">Showing your edited numbers.</b>`:""}</p>
+
+        <div class="ac-group">
+          <div class="ac-gl">Energy prices</div>
+          <div class="ac-fields">
+            <label class="acf"><span>Electricity <small>${acCur}/kWh</small></span><input type="number" id="ac-elec" step="0.005" min="0" value="${a.elec}"></label>
+            ${showFuel?`<label class="acf"><span>${a.fuelLabel} <small>${acCur}${a.fuelUnit}</small></span><input type="number" id="ac-fuel" step="${fuelStep}" min="0" value="${a.fuelPrice}"></label>`:""}
+          </div>
+        </div>
+
+        <div class="ac-group">
+          <div class="ac-gl">Grants applied <small>${a.region}</small></div>
+          ${niNote}
+          <div class="ac-fields">
+            ${gKeys.map(k=>`<label class="acf"><span>${gLabels[k]} <small>${acCur}</small></span><input type="number" data-grant="${k}" step="50" min="0" value="${a.grants[k]||0}"></label>`).join("")}
+          </div>
+        </div>
+
+        <div class="ac-group">
+          <div class="ac-gl">What we assumed <small>read-only</small></div>
+          <div class="ac-read">
+            <span><b>Heat-pump efficiency (SCOP)</b> at band ${a.band} — <span class="mono">${a.scop}</span></span>
+            <span><b>Solar yield</b> — <span class="mono">${a.solarYield} kWh/kWp/yr</span></span>
+            <span><b>Export rate</b> — <span class="mono">${acCur}${a.exportRate}/kWh</span></span>
+            <span><b>Typical install</b> — heat pump <span class="mono">~${money(acCur,a.installHP)}</span>, solar <span class="mono">~${money(acCur,a.installSolar)}</span></span>
+          </div>
+        </div>
+
+        <div class="ac-actions">
+          <button type="button" class="btn btn-primary" onclick="acRecalc()">Recalculate with my numbers →</button>
+          <button type="button" class="ac-reset" onclick="acReset()">Reset to 2026 figures</button>
+        </div>
+      </div>
+    </details>`;
+}
+
+show(1);
+
+/* ---------------- scroll reveal ---------------- */
+(function(){
+  const els=$$(".reveal");
+  if(!("IntersectionObserver" in window)){els.forEach(e=>e.classList.add("in"));return;}
+  const io=new IntersectionObserver((ents)=>{
+    ents.forEach(en=>{if(en.isIntersecting){en.target.classList.add("in");io.unobserve(en.target);}});
+  },{threshold:0.12,rootMargin:"0px 0px -40px 0px"});
+  els.forEach(e=>io.observe(e));
+})();
+</script>
+</script>
+</body>
+</html>

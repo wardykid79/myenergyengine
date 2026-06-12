@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Independent Energy Report | My Energy Engine</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brand:#0a7a62; --brand-ink:#075849; --brand-tint:#eef6f3; --brand-2:#12a07f;
+    --ink:#16201d; --ink-soft:#3c4a45; --muted:#6b7a74; --line:#e3e9e6; --line-2:#eef2f0;
+    --surface:#ffffff; --bg:#fafbf9; --paper:#fff;
+    --ember:#b9651f; --ember-ink:#8a4a1f; --ember-tint:#fbf1e8; --gold:#b08a2e; --gold-tint:#fbf6e9;
+    --r:14px; --r-lg:20px; --sh-1:0 1px 2px rgba(20,40,33,.05),0 4px 16px rgba(20,40,33,.05);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hanken Grotesk",system-ui,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .mono{font-family:"JetBrains Mono",monospace}
+  em{font-family:"Fraunces",Georgia,serif;font-style:italic;font-weight:500;color:var(--brand)}
+
+  /* screen-only control bar */
+  .toolbar{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .tb-brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.02em;font-size:16px}
+  .seal{width:26px;height:26px;border-radius:8px;background:linear-gradient(140deg,var(--brand-2),var(--brand));display:inline-flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(10,122,98,.3)}
+  .seal svg{width:16px;height:16px}
+  .btn{font-family:inherit;font-weight:600;font-size:14.5px;border-radius:999px;padding:10px 18px;border:1px solid var(--brand);background:var(--brand);color:#fff;cursor:pointer;transition:.15s}
+  .btn:hover{background:var(--brand-ink);border-color:var(--brand-ink)}
+  .btn.ghost{background:transparent;color:var(--brand);border-color:#cfe7df}
+  .btn.ghost:hover{background:var(--brand-tint)}
+
+  .sheet{max-width:840px;margin:0 auto;padding:34px 22px 80px}
+
+  /* cover */
+  .cover{background:linear-gradient(155deg,#0c2c25,#0a7a62);color:#fff;border-radius:var(--r-lg);padding:38px 32px;box-shadow:var(--sh-1)}
+  .cover .kick{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#9fe0cd}
+  .cover h1{font-size:clamp(28px,5.5vw,40px);line-height:1.08;letter-spacing:-.03em;margin:14px 0 0;font-weight:800}
+  .cover h1 em{color:#ffe8b0}
+  .cover .sub{margin:16px 0 0;color:#d6efe7;font-size:16.5px;max-width:54ch}
+  .cover .meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:8px 22px;font-family:"JetBrains Mono",monospace;font-size:12.5px;color:#bfe6da}
+
+  section{margin-top:30px}
+  .lbl{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);font-weight:600}
+  h2{font-size:clamp(20px,3.4vw,26px);letter-spacing:-.025em;margin:8px 0 14px;line-height:1.18}
+  h3{font-size:17px;margin:0 0 6px;letter-spacing:-.01em}
+  p{margin:0 0 12px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px 22px;box-shadow:var(--sh-1)}
+
+  /* home summary */
+  .facts{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+  .fact{background:var(--surface);padding:13px 16px}
+  .fact .k{font-size:12.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;font-family:"JetBrains Mono",monospace}
+  .fact .v{font-weight:600;margin-top:3px;font-size:15.5px}
+
+  /* verdict */
+  .verdict{background:linear-gradient(160deg,var(--brand-tint),#fff);border:1px solid #cfe7df;border-radius:var(--r-lg);padding:26px 26px}
+  .verdict .vt{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--brand);background:#fff;border:1px solid #cfe7df;border-radius:999px;padding:5px 12px}
+  .verdict h2{margin:14px 0 4px}
+  .verdict .vd{color:var(--ink-soft);margin:0}
+  .nums{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:22px}
+  .num{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:14px}
+  .num .nl{font-size:11.5px;color:var(--muted);font-family:"JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.05em}
+  .num .nv{font-family:"JetBrains Mono",monospace;font-weight:600;font-size:21px;margin-top:5px;color:var(--brand-ink);letter-spacing:-.02em}
+  .num.warn .nv{color:var(--ember-ink)}
+
+  /* route */
+  .step{display:flex;gap:14px;padding:15px 0;border-bottom:1px solid var(--line-2)}
+  .step:last-child{border-bottom:0}
+  .step .n{flex:none;width:30px;height:30px;border-radius:9px;background:var(--brand);color:#fff;font-family:"JetBrains Mono",monospace;font-weight:600;display:flex;align-items:center;justify-content:center;font-size:14px}
+  .step .sb{flex:1;min-width:0}
+  .step .stag{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--brand);font-weight:600}
+  .step .sc{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--ink-soft);margin-top:5px}
+  .step .sd{color:var(--ink-soft);font-size:14.5px;margin-top:3px}
+
+  /* options table */
+  table{width:100%;border-collapse:collapse;font-size:14.5px}
+  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line)}
+  th{font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  td.n,th.n{text-align:right;font-family:"JetBrains Mono",monospace;white-space:nowrap}
+  tr.rec td{background:var(--brand-tint)}
+  .pill{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--brand);font-weight:600;background:#fff;border:1px solid #cfe7df;border-radius:999px;padding:2px 7px;margin-left:7px;vertical-align:middle}
+
+  /* mistake + flags */
+  .alert{border-radius:var(--r);padding:18px 20px;border:1px solid}
+  .alert.ember{background:var(--ember-tint);border-color:#eccfb0}
+  .alert.ember .at{color:var(--ember-ink);font-weight:700;margin-bottom:6px}
+  .alert.ember .ad{color:#6e4a25;font-size:14.5px}
+  .flag{padding:13px 0;border-bottom:1px solid var(--line-2)}
+  .flag:last-child{border-bottom:0}
+  .flag .ft{font-weight:600}
+  .flag .fd{color:var(--ink-soft);font-size:14.5px;margin-top:3px}
+
+  /* checklist */
+  .chk{list-style:none;margin:0;padding:0}
+  .chk li{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--line-2);font-size:15px}
+  .chk li:last-child{border-bottom:0}
+  .chk .box{flex:none;width:18px;height:18px;border:2px solid var(--brand);border-radius:5px;margin-top:2px}
+
+  /* assumptions */
+  .asum{font-size:14px;color:var(--ink-soft)}
+  .asum .row{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px solid var(--line-2)}
+  .asum .row:last-child{border-bottom:0}
+  .asum .row .rv{font-family:"JetBrains Mono",monospace;color:var(--ink);white-space:nowrap}
+
+  footer{margin-top:36px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted);font-size:13px;line-height:1.6}
+
+  .empty{max-width:520px;margin:12vh auto;text-align:center;padding:0 24px}
+  .empty h1{font-size:26px;letter-spacing:-.02em}
+  .empty p{color:var(--ink-soft)}
+
+  @media(max-width:600px){
+    .facts{grid-template-columns:1fr}
+    .nums{grid-template-columns:1fr 1fr}
+    .sheet{padding:22px 14px 64px}
+    .cover{padding:30px 22px}
+  }
+
+  /* PRINT — clean PDF */
+  @media print{
+    @page{margin:14mm}
+    body{background:#fff;font-size:11.5pt}
+    .toolbar,.noprint{display:none!important}
+    .sheet{max-width:none;padding:0}
+    .cover{background:#0a7a62!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;border-radius:12px}
+    .card,.verdict,.facts,.fact,.num,.alert,.pill{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    section{margin-top:20px;break-inside:avoid}
+    .step,.flag,.chk li{break-inside:avoid}
+    h2{break-after:avoid}
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar noprint">
+  <a class="tb-brand" href="/" style="text-decoration:none;color:inherit"><span class="seal"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>My Energy Engine</a>
+  <button class="btn" onclick="window.print()">Download / Print as PDF</button>
+</div>
+
+<div id="app"></div>
+
+<script src="engine.js"></script>
+<script>
+"use strict";
+
+var ERA={pre1980:"Built before 1980","1980-1990":"Built 1980–1990","1991-2005":"Built 1991–2005","2006-2010":"Built 2006–2010",post2011:"Built 2011–2020",newbuild:"New build (2021+)"};
+var WALL={cavity:"Cavity wall (unfilled)","cavity-filled":"Cavity wall (filled)",solid:"Solid / stone wall",timber:"Timber frame",icf:"ICF / airtight",unknown:"Wall type not known"};
+var INS={poor:"Draughty & cold",some:"Average",good:"Pretty warm",excellent:"Toasty & airtight"};
+var HEAT={oil:"Oil boiler",gas:"Mains gas boiler",lpg:"LPG boiler",pellet:"Wood pellet / biomass",solid:"Solid fuel / stove",electric:"Electric storage heaters",hp:"Heat pump (existing)"};
+var PRIO={cost:"Lowest cost & payback",green:"Lowest carbon",simple:"Simplest / least hassle"};
+var GLABEL={hpSystem:"Heat-pump grant",hpCentral:"Central-heating grant",hpBonus:"Fossil-switch bonus",hpOffGas:"Off-gas heat-pump grant",solar:"Solar PV grant",attic:"Attic insulation grant",cavity:"Cavity insulation grant",biomass:"Biomass grant"};
+
+function getData(){
+  try{
+    var p=new URLSearchParams(location.search).get("d");
+    if(p)return JSON.parse(decodeURIComponent(atob(p)));
+  }catch(e){}
+  try{
+    var s=localStorage.getItem("mee_report");
+    if(s)return JSON.parse(s);
+  }catch(e){}
+  return null;
+}
+function esc(s){return String(s).replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c];});}
+
+function render(){
+  var app=document.getElementById("app");
+  var data=getData();
+  if(!data||!data.input){
+    app.innerHTML='<div class="empty"><h1>No report data found</h1><p>Run the free calculator first, then come back here for your full report.</p><p style="margin-top:18px"><a class="btn" href="/" style="text-decoration:none">Go to the calculator →</a></p></div>';
+    return;
+  }
+  var input=data.input, overrides=data.overrides||null;
+  var res, route, flags;
+  try{
+    res=assess(input,overrides);
+    route=routeFor(res,input);
+    flags=redFlags(res,input);
+  }catch(e){
+    app.innerHTML='<div class="empty"><h1>Something went wrong</h1><p>We couldn\'t rebuild this report. Please re-run the calculator.</p><p style="margin-top:18px"><a class="btn" href="/" style="text-decoration:none">Back to the calculator →</a></p></div>';
+    return;
+  }
+
+  var cur=res.cur;
+  var m=function(n){return cur+Math.round(n).toLocaleString();};
+  var best=res.best;
+  var hp=["hp","insul_hp","full"].indexOf(best.key)>-1;
+  var solar=["solar","full"].indexOf(best.key)>-1;
+  var insulany=["insul","insul_hp","full","boiler"].indexOf(best.key)>-1;
+  var noBER=!input.ber;
+  var today=new Date().toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"});
+
+  // verdict tier
+  var tier;
+  if(res.conf.label==="High confidence")tier={t:"Clear recommendation",d:"You gave us enough detail to be confident in this direction."};
+  else if(res.conf.label==="Good confidence"&&hp)tier={t:"Qualified recommendation",d:"A confident yes — provided a survey confirms the heat-loss figure and your radiators suit lower flow temperatures."};
+  else if(res.conf.label==="Indicative"&&hp&&noBER)tier={t:"Indicative — get a BER / EPC first",d:"The direction looks right, but we won't tell you to spend big until a BER / EPC pins down your home's real performance."};
+  else tier={t:res.conf.label,d:"Based on what you've told us so far."};
+
+  // home facts
+  var facts=[
+    ["Region",res.regionName],
+    ["Property age",ERA[input.era]||input.era],
+    ["Walls",WALL[input.construction]||input.construction],
+    ["How it feels",INS[input.insulation]||input.insulation],
+    ["Energy rating",input.ber?("Band "+input.ber):"Not supplied (estimated band "+res.band+")"],
+    ["Current heating",HEAT[input.heating]||input.heating],
+    ["Floor area",input.area+" m²"],
+    ["Occupants",String(input.occupants)],
+    ["What matters most",PRIO[input.priority]||input.priority]
+  ];
+  var factsHTML=facts.map(function(f){return '<div class="fact"><div class="k">'+esc(f[0])+'</div><div class="v">'+esc(f[1])+'</div></div>';}).join("");
+
+  // numbers
+  var pay=best.payback?(best.payback<1?"<1 yr":best.payback.toFixed(1).replace(/\.0$/,"")+" yrs"):"—";
+  var saveWarn=best.save<0;
+  var numsHTML=
+    '<div class="num"><div class="nl">Net cost after grants</div><div class="nv">'+m(best.net)+'</div></div>'+
+    '<div class="num'+(saveWarn?' warn':'')+'"><div class="nl">'+(saveWarn?"Bill change / yr":"Saving / year")+'</div><div class="nv">'+(saveWarn?"+":"")+m(Math.abs(best.save))+'</div></div>'+
+    '<div class="num"><div class="nl">Payback</div><div class="nv">'+pay+'</div></div>'+
+    '<div class="num"><div class="nl">CO₂ cut / yr</div><div class="nv">'+(best.co2Save>0?Math.round(best.co2Save).toLocaleString()+" kg":"—")+'</div></div>';
+
+  // route
+  var routeHTML=route.steps.map(function(s,i){
+    return '<div class="step"><div class="n">'+(i+1)+'</div><div class="sb">'+
+      (s.tag?'<div class="stag">'+esc(s.tag)+'</div>':'')+
+      '<h3>'+esc(s.title)+'</h3>'+
+      '<div class="sd">'+esc(s.detail)+'</div>'+
+      (s.cost?'<div class="sc">'+esc(s.cost)+'</div>':'')+
+    '</div></div>';
+  }).join("");
+
+  // options ranked
+  var rows=res.list.map(function(o,i){
+    var rec=i===0;
+    var savTxt=o.save<0?("+"+m(Math.abs(o.save))):m(o.save);
+    var pb=o.payback?(o.payback<1?"<1":o.payback.toFixed(1).replace(/\.0$/,"")):"—";
+    return '<tr'+(rec?' class="rec"':'')+'>'+
+      '<td><strong>'+esc(o.label)+'</strong>'+(rec?'<span class="pill">Recommended</span>':'')+
+        '<div style="font-size:12.5px;color:var(--muted);margin-top:3px">'+esc((o.measures||[]).join(" · "))+'</div></td>'+
+      '<td class="n">'+m(o.net)+'</td>'+
+      '<td class="n">'+m(o.running)+'/yr</td>'+
+      '<td class="n">'+savTxt+'/yr</td>'+
+      '<td class="n">'+pb+(pb!=="—"?" yr":"")+'</td>'+
+    '</tr>';
+  }).join("");
+
+  // mistake
+  var mistakeHTML="";
+  if(res.mistake&&res.mistake.key!==best.key){
+    mistakeHTML='<section><span class="lbl">The costly mistake</span><h2>What <em>not</em> to do</h2>'+
+      '<div class="alert ember"><div class="at">⚠ '+esc(res.mistake.label)+'</div>'+
+      '<div class="ad">'+esc((res.mistake.work&&res.mistake.work[0])||"This option looks tempting but works out worse for your home — most often because it spends on the wrong thing first.")+
+      ' Net '+m(res.mistake.net)+', running '+m(res.mistake.running)+'/yr — compare that with the recommendation above.</div></div></section>';
+  }
+
+  // flags
+  var flagsHTML=flags.map(function(f){return '<div class="flag"><div class="ft">'+esc(f.t)+'</div><div class="fd">'+esc(f.d)+'</div></div>';}).join("");
+
+  // installer questions (tailored)
+  var q=[
+    "Ask for a written heat-loss / energy assessment for THIS house — not a rule-of-thumb based on floor area.",
+    "Confirm the installer is properly registered (MCS in GB, or SEAI-registered in the Republic) — grants depend on it.",
+    "Get a fully itemised quote: equipment, labour, controls, and anything excluded (e.g. electrical upgrades, scaffolding).",
+    "Ask exactly how the grant is handled — who claims it, and what you pay before vs after it lands.",
+    "Ask for two or three recent local references you can actually contact."
+  ];
+  if(hp){
+    q.push("Ask the design flow temperature — a good heat-pump design aims for around 45°C or lower, not 55°C+.");
+    q.push("Ask which radiators (or emitters) need upsizing for lower flow temperatures, and whether that's in the price.");
+    q.push("Ask for the estimated SCOP (seasonal efficiency) for YOUR home and band — be wary of a single headline figure.");
+    q.push("Ask about noise: the outdoor unit's sound level and where it will be sited relative to bedrooms and neighbours.");
+  }
+  if(solar){
+    q.push("Ask for a roof assessment covering orientation and shading across the day — not just total panel count.");
+    q.push("Ask about the export tariff: which suppliers you can sign with, and whether MCS certification is in place for it.");
+  }
+  if(insulany){
+    q.push("Ask how ventilation and condensation risk are handled — insulating a house without addressing airflow can cause damp.");
+    q.push("Ask what guarantee the insulation carries (e.g. a CIGA guarantee for cavity fill) and who honours it.");
+  }
+  var qHTML='<ul class="chk">'+q.map(function(t){return '<li><span class="box"></span><span>'+esc(t)+'</span></li>';}).join("")+'</ul>';
+
+  // assumptions
+  var a=res.assumptions;
+  var arows=[
+    ["Electricity price",cur+a.elec+" / kWh"],
+    [a.fuelLabel+" price",cur+a.fuelPrice+" / "+a.fuelUnit],
+    ["Heat-pump efficiency (SCOP)","×"+a.scop+" (estimated for band "+a.band+")"],
+    ["Solar yield",a.solarYield+" kWh per kWp / yr"],
+    ["Heat-pump install (before grant)","~"+cur+a.installHP.toLocaleString()],
+    ["Solar install (before grant)","~"+cur+a.installSolar.toLocaleString()]
+  ];
+  var gKeys=({ROI:["hpSystem","hpCentral","hpBonus","solar","attic","cavity"],GB:["hpSystem","hpOffGas","biomass"],SCOT:["hpSystem","attic","cavity"],NI:["hpSystem","attic","solar"]})[a.region]||[];
+  gKeys.forEach(function(k){ if(a.grants[k]>0) arows.push([GLABEL[k]||k, cur+a.grants[k].toLocaleString()]); });
+  var asumHTML='<div class="asum">'+arows.map(function(r){return '<div class="row"><span>'+esc(r[0])+'</span><span class="rv">'+esc(r[1])+'</span></div>';}).join("")+'</div>';
+
+  app.innerHTML=
+  '<div class="sheet">'+
+
+    '<div class="cover">'+
+      '<div class="kick">Independent energy report</div>'+
+      '<h1>What I\'d do with <em>this house</em></h1>'+
+      '<p class="sub">A complete, independent read on your home — the recommended route, the real numbers, the mistakes to avoid, and the exact questions to ask before you spend.</p>'+
+      '<div class="meta"><span>'+esc(res.regionName)+'</span><span>'+esc(HEAT[input.heating]||input.heating)+'</span><span>'+input.area+' m²</span><span>'+esc(today)+'</span></div>'+
+    '</div>'+
+
+    '<section><span class="lbl">Your home</span><h2>The house we assessed</h2>'+
+      '<div class="facts">'+factsHTML+'</div>'+
+      '<p style="font-size:13px;color:var(--muted);margin-top:10px">'+(input.ber?'Based on your supplied energy rating.':'No energy rating was supplied, so figures use an estimated band of '+res.band+'. A BER/EPC would sharpen every number below.')+'</p>'+
+    '</section>'+
+
+    '<section><div class="verdict">'+
+      '<span class="vt">'+esc(tier.t)+' · '+esc(res.conf.label)+'</span>'+
+      '<h2>'+esc(best.label)+'</h2>'+
+      '<p class="vd">'+esc(tier.d)+'</p>'+
+      '<div class="nums">'+numsHTML+'</div>'+
+    '</div></section>'+
+
+    '<section><span class="lbl">Your route</span><h2>The plan, <em>in the right order</em></h2>'+
+      '<div class="card">'+routeHTML+'</div>'+
+      '<p style="font-size:13px;color:var(--muted);margin-top:10px">Costs are indicative and after any grant you qualify for. Always confirm with a written quote.</p>'+
+    '</section>'+
+
+    '<section><span class="lbl">Every option compared</span><h2>What each path actually costs</h2>'+
+      '<div class="card" style="padding:6px 4px"><table><thead><tr><th>Option</th><th class="n">Net cost</th><th class="n">Running</th><th class="n">Saving</th><th class="n">Payback</th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
+    '</section>'+
+
+    mistakeHTML+
+
+    '<section><span class="lbl">On your side of the table</span><h2>Quote red-flags to <em>watch for</em></h2>'+
+      '<div class="card">'+flagsHTML+'</div></section>'+
+
+    '<section><span class="lbl">Take this to your meetings</span><h2>Questions to ask every installer</h2>'+
+      '<div class="card">'+qHTML+'</div></section>'+
+
+    '<section><span class="lbl">Full transparency</span><h2>The assumptions behind every number</h2>'+
+      '<div class="card">'+asumHTML+'</div>'+
+      '<p style="font-size:13px;color:var(--muted);margin-top:10px">These are the figures the engine used. If your real prices differ, the result shifts — which is exactly why we show them.</p>'+
+    '</section>'+
+
+    '<footer>This report is independent guidance, not a substitute for a site survey by a qualified installer or assessor. We favour no technology and no installer, and our recommendations cannot be bought. Costs, grants and prices are indicative for 2026 and change over time — confirm current figures before committing. Generated '+esc(today)+' by My Energy Engine.</footer>'+
+
+  '</div>';
+}
+render();
+</script>
+</body>
+</html>
