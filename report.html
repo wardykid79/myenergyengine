@@ -105,6 +105,14 @@
   .asum .row:last-child{border-bottom:0}
   .asum .row .rv{font-family:"JetBrains Mono",monospace;color:var(--ink);white-space:nowrap}
 
+  /* explainer cards */
+  .expl{padding:18px 0;border-bottom:1px solid var(--line-2)}
+  .expl:first-child{padding-top:2px}
+  .expl:last-child{border-bottom:0;padding-bottom:2px}
+  .expl h3{font-size:16.5px;line-height:1.3;margin:0 0 8px;color:var(--brand-ink)}
+  .expl p{margin:0;font-size:14.5px;line-height:1.6;color:var(--ink-soft)}
+  .expl b{color:var(--ink)}
+
   footer{margin-top:36px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted);font-size:13px;line-height:1.6}
 
   .empty{max-width:520px;margin:12vh auto;text-align:center;padding:0 24px}
@@ -286,16 +294,90 @@ function render(){
   // assumptions
   var a=res.assumptions;
   var arows=[
-    ["Electricity price",cur+a.elec+" / kWh"],
-    [a.fuelLabel+" price",cur+a.fuelPrice+" / "+a.fuelUnit],
+    ["Electricity price",cur+a.elec+" / kWh"]
+  ];
+  if(a.fuelKey!=="electric"&&a.fuelKey!=="hp"){arows.push([a.fuelLabel+" price",cur+a.fuelPrice+" / "+a.fuelUnit]);}
+  arows.push(
     ["Heat-pump efficiency (SCOP)","×"+a.scop+" (estimated for band "+a.band+")"],
     ["Solar yield",a.solarYield+" kWh per kWp / yr"],
     ["Heat-pump install (before grant)","~"+cur+a.installHP.toLocaleString()],
     ["Solar install (before grant)","~"+cur+a.installSolar.toLocaleString()]
-  ];
+  );
   var gKeys=({ROI:["hpSystem","hpCentral","hpBonus","solar","attic","cavity"],GB:["hpSystem","hpOffGas","biomass"],SCOT:["hpSystem","attic","cavity"],NI:["hpSystem","attic","solar"]})[a.region]||[];
   gKeys.forEach(function(k){ if(a.grants[k]>0) arows.push([GLABEL[k]||k, cur+a.grants[k].toLocaleString()]); });
   var asumHTML='<div class="asum">'+arows.map(function(r){return '<div class="row"><span>'+esc(r[0])+'</span><span class="rv">'+esc(r[1])+'</span></div>';}).join("")+'</div>';
+
+  /* ===== PLAIN-ENGLISH BUILDING SCIENCE — the bit a builder knows that a first-timer doesn't ===== */
+  var building=(input.era==="newbuild"||input.era==="post2011");
+  var roi=(input.region==="ROI");
+  var ccy=cur;
+  // explainer cards — chosen by relevance to this home
+  var ex=[];
+  ex.push(["Cavity walls: bead vs board vs full-fill — what the argument is really about",
+    "Everyone on site has an opinion here, so here's the plain version. A cavity wall is two leaves (skins) of block with a gap between them. That gap does one job: it stops rain that soaks the outer leaf from ever reaching the inner leaf. How you insulate that gap is the whole debate.<br><br><b>Partial fill (board/slab):</b> rigid insulation boards are fixed against the inner leaf as the wall is built, leaving a clear air gap (the \u201cresidual cavity\u201d) on the outer side. Done well it performs brilliantly. The catch is workmanship \u2014 boards must be tight-butted with no gaps, and the residual cavity must be kept clear of mortar droppings. Gaps let air loop around the boards (\u201cthermal looping\u201d) and quietly wreck the U-value you paid for.<br><br><b>Full fill (bonded bead):</b> the entire cavity is pumped with EPS beads in a glue, forming one continuous mass with no gaps to loop through. Because it's bonded and water-repellent, certified systems let moisture drain down to the weep holes rather than bridge across. It's fast, low-waste, and forgiving of site workmanship \u2014 which is exactly why a lot of experienced builders quietly prefer it. The catch: it must be a <i>certified</i> bonded-bead system (NSAI / Irish Agr\u00e9ment Board in the Republic, BBA in the UK) installed to the proper drill pattern \u2014 not loose beads.<br><br><b>The honest takeaway:</b> board can edge bead on paper for thermal performance at the same width, but bead is far more tolerant of imperfect site work \u2014 and imperfect site work is the norm, not the exception. Ask which one your builder can deliver <i>well</i>, not just which is \u201cbest\u201d in a brochure."]);
+  if(building){
+    ex.push(["\u201cWe always built it this way\u201d \u2014 why that's now a trap",
+      "A builder who's put up twenty houses knows a method that worked. The problem is the standard has moved under everyone's feet. New homes now have to hit far tighter heat-loss and airtightness targets than even a decade ago, and the carbon limits are effectively set at a level no oil or gas boiler can meet \u2014 which is why a heat pump is now the default on a new build, not an upgrade.<br><br>What that means for you: a wall, floor or roof build-up that was \u201cgrand\u201d on the last job may not comply now, and a heat pump dropped into a house that isn't airtight will run cold and cost a fortune. The order of trust matters \u2014 your <b>assigned designer/engineer and the U-value and airtightness figures on your drawings</b> are the authority, not the loudest voice on site. If a sub-contractor wants to deviate \u201cto save time,\u201d that change should go back through whoever signs off compliance, every time."]);
+    ex.push(["Insulation placement & cold bridges \u2014 the detail that makes or breaks the figure",
+      "The U-value on your drawings is a <i>laboratory</i> number. You only actually get it if the insulation is continuous \u2014 no gaps at junctions, no squashed sections, and the wall ties and service penetrations handled properly. The places heat escapes a new build are almost always the <b>junctions</b>: wall-to-floor, wall-to-roof, around windows, at the wall plate. These \u201cthermal bridges\u201d are cold lines where heat leaks and, worse, where condensation and mould can form years later.<br><br>This is why the same drawings can produce a warm, dry house or a draughty, damp one depending purely on who built it. Ask to see the <b>thermal-bridging / junction details</b> and make sure whoever's laying insulation has actually been shown them \u2014 it's the cheapest insurance on the whole build."]);
+    ex.push(["Airtightness & ventilation \u2014 why you can't have one without the other",
+      "Two words that decide whether your dream home is comfortable or stuffy and damp. <b>Airtightness</b> means sealing the uncontrolled draughts (gaps, leaky junctions) so you're not heating air that immediately leaks out. A modern build is tested for this. <b>Ventilation</b> then puts the air exchange back under control \u2014 deliberately, with heat recovery \u2014 instead of leaving it to random gaps.<br><br>Here's the trap a lot of first-timers fall into: make a house airtight but skimp on ventilation, and you get condensation, stale air and mould. The two must be designed together. On a tight new build that usually means <b>MVHR</b> (mechanical ventilation with heat recovery) \u2014 it pulls stale, damp air from kitchens and bathrooms and uses its warmth to pre-heat the fresh air coming in. It's not a luxury at this airtightness level; it's the thing that keeps the house healthy. Agree the ventilation strategy <i>early</i>, not as an afterthought once the walls are up."]);
+  } else {
+    ex.push(["Retrofit cavity fill \u2014 what to check before you let anyone drill your walls",
+      "Pumping an existing cavity is one of the best-value upgrades there is \u2014 but only if your wall is suitable. The cavity has to be clean, the right width (very narrow or rubble-filled cavities aren't suitable for standard injection), and the outer wall sound, or you risk pushing damp across. A good installer drills a small inspection hole first to check, and uses a <b>certified bonded-bead system</b> to the manufacturer's drill pattern so the fill is complete with no cold gaps.<br><br>Red flag: anyone who quotes to pump your cavity without inspecting it, or who can't tell you the certification of the bead system. The damp problems people blame on \u201ccavity insulation\u201d almost always trace back to an unsuitable wall or a botched fill \u2014 not the idea itself."]);
+    ex.push(["Insulate before you heat-pump \u2014 the order that saves thousands",
+      "The single most expensive mistake in this whole area is fitting a heat pump into a leaky house. A heat pump runs cool, gentle water \u2014 it sips energy in a well-insulated home and gulps it in a draughty one. Put one into a cold house and your bills can go <i>up</i>, and you'll have paid for a bigger, more expensive unit than you'd have needed.<br><br>The right order is almost always: tighten the fabric first (attic, walls, draughts), <i>then</i> size and fit the heat pump for the lower demand. It's not just cheaper to run \u2014 it's a smaller install bill too. Anyone pushing a heat pump without first asking about your insulation is selling a box, not solving your problem."]);
+    ex.push(["Airtightness & ventilation in an upgrade \u2014 don't seal yourself into a damp box",
+      "As you make an older house warmer and tighter \u2014 new windows, draught-proofing, insulation \u2014 you also trap moisture that used to escape through all those gaps. Reduce the draughts without giving the moisture a planned way out and you can create condensation and mould where there was none.<br><br>So whenever you tighten a house, think about ventilation in the same breath: trickle vents on new windows, decent extract in the kitchen and bathroom, and on bigger renovations sometimes mechanical ventilation. It's the bit homeowners forget, and it's the bit that causes the damp complaints. Warm <i>and</i> well-ventilated \u2014 never one without the other."]);
+  }
+  var exHTML=ex.map(function(c){return '<div class="expl"><h3>'+c[0]+'</h3><p>'+c[1]+'</p></div>';}).join("");
+
+  /* ===== WHAT A FAIR QUOTE LOOKS LIKE \u2014 indicative ranges so they can spot a rip-off ===== */
+  var fq=[];
+  function fqRow(label,lo,hi,note){fq.push([label,ccy+lo.toLocaleString()+"\u2013"+ccy+hi.toLocaleString(),note]);}
+  if(hp){fqRow("Air-source heat pump (supply + install, before grant)", roi?12000:11000, roi?17000:16000, "Whole-house system. Wildly cheaper quotes often skip radiator upgrades or proper design.");}
+  if(insulany){fqRow("Attic insulation (top-up to current standard)", roi?1200:1000, roi?2800:2400, "Per typical house. Cheap and high-impact.");
+    fqRow("Cavity wall fill (bonded bead, whole house)", roi?1300:1100, roi?2600:2200, "Detached costs more than terraced \u2014 more exposed wall.");}
+  if(solar){fqRow("Solar PV ~4.5 kWp (panels + inverter, before grant)", roi?6500:6000, roi?9500:9000, "Add a battery and it rises a few thousand more.");}
+  fqRow("BER / EPC assessment", roi?150:120, roi?300:250, "Worth it \u2014 unlocks grants and confirms the plan.");
+  var fqHTML='<div class="card" style="padding:6px 4px"><table><thead><tr><th>Work</th><th class="n">Fair range</th></tr></thead><tbody>'+
+    fq.map(function(r){return '<tr><td><strong>'+esc(r[0])+'</strong><div style="font-size:12.5px;color:var(--muted);margin-top:3px">'+esc(r[2])+'</div></td><td class="n">'+esc(r[1])+'</td></tr>';}).join("")+
+    '</tbody></table></div><p style="font-size:13px;color:var(--muted);margin-top:10px">Indicative 2026 ranges for guidance only \u2014 your real quote depends on your house, access and finish. A quote far <i>below</i> these usually means something\u2019s been left out; ask what.</p>';
+
+  /* ===== GRANT WALKTHROUGH \u2014 the actual steps, which are fiddly ===== */
+  var gw=[];
+  if(roi){
+    gw=["Register for the grant on the <b>SEAI</b> website <i>before</i> any work starts \u2014 applying after the fact usually voids it.",
+      "Use an <b>SEAI-registered contractor</b> \u2014 the grant depends on it. Ask for their registration number and check it.",
+      "Get a <b>BER assessment</b> done where required \u2014 it's often part-funded and confirms what you qualify for.",
+      "Agree clearly who claims the grant: most homeowners pay the contractor the net figure and SEAI pays the grant portion directly. Confirm this in writing.",
+      "Keep every invoice and the post-works BER \u2014 you'll need them to draw the grant down."];
+  } else if(input.region==="SCOT"){
+    gw=["Contact <b>Home Energy Scotland</b> first and get your recommendations report \u2014 the process is homeowner-led, not installer-led.",
+      "Confirm whether you qualify for the <b>rural/island uplift</b> (it's postcode-based and worth up to £1,500 more).",
+      "Decide grant vs grant-plus-interest-free-loan \u2014 the loan covers the rest of the cost at 0%, which softens the upfront hit.",
+      "Use an installer who's set up for the HES process and certified (MCS for heat pumps).",
+      "Keep all paperwork \u2014 quotes, certificates, invoices \u2014 for the claim."];
+  } else if(input.region==="GB"){
+    gw=["For a heat pump, your <b>MCS-certified installer</b> applies for the <b>Boiler Upgrade Scheme</b> grant on your behalf and takes it off your bill \u2014 you don't claim it yourself.",
+      "Confirm the installer is genuinely MCS-certified before signing \u2014 no certification, no grant.",
+      "Off-gas oil/LPG homes: check you're getting the higher £9,000 rate (from July 2026) rather than £7,500.",
+      "Insulation help is largely means-tested (ECO4) \u2014 check eligibility separately; don't assume it's included.",
+      "Get the grant amount stated explicitly on your quote so there are no surprises."];
+  } else {
+    gw=["Northern Ireland has <b>no Boiler Upgrade Scheme and no SEAI</b> \u2014 the main help is the means-tested <b>NISEP</b> scheme.",
+      "Check NISEP / Affordable Warmth eligibility by income before assuming you'll get help \u2014 many owner-occupiers don't qualify.",
+      "You still get <b>0% VAT</b> on heat pumps, insulation and solar \u2014 make sure your quote reflects that.",
+      "Because grants are thin here, focus on the measures with the best payback regardless of grant \u2014 usually insulation first.",
+      "Keep an eye out for one-off schemes; they come and go. Confirm current availability before committing."];
+  }
+  var gwHTML='<ol class="chk">'+gw.map(function(t){return '<li><span class="box"></span><span>'+t+'</span></li>';}).join("")+'</ol>';
+
+  /* ===== WHY THIS RANKS WHERE IT DOES \u2014 reasoning behind the table ===== */
+  var prio=({cost:"keeping cost and payback lowest",green:"cutting carbon the most",simple:"the least hassle"})[input.priority]||"your priorities";
+  var why="<p>You told us you care most about <b>"+prio+"</b>, so that's how we weighted things. <b>"+esc(best.label)+"</b> came out on top because it gives the strongest result on that measure for <i>your</i> specific home \u2014 your band "+res.band+" fabric, your "+esc((HEAT[input.heating]||input.heating).toLowerCase())+", and the grants you actually qualify for in "+esc(res.regionName)+".</p>";
+  if(res.mistake&&res.mistake.key!==best.key){why+="<p style=\"margin-top:10px\">We deliberately ranked <b>"+esc(res.mistake.label)+"</b> low, even though it can look tempting, because for a home like yours it spends money in the wrong order and gives a worse real-world result. The ranking isn't about what's newest or most expensive \u2014 it's about what pays you back.</p>";}
+  why+="<p style=\"margin-top:10px\">If you change what you care about \u2014 say you'd rather cut carbon than cost \u2014 the order can shift. That's not a flaw; it's the honest answer that the order depends on what <i>you</i> value, and we'd rather show you that than pretend there's one magic answer.</p>";
 
   app.innerHTML=
   '<div class="sheet">'+
@@ -335,6 +417,19 @@ function render(){
 
     '<section><span class="lbl">Take this to your meetings</span><h2>Questions to ask every installer</h2>'+
       '<div class="card">'+qHTML+'</div></section>'+
+
+    '<section><span class="lbl">Plain English, no jargon</span><h2>What these choices <em>actually mean</em></h2>'+
+      '<p style="color:var(--ink-soft);margin:0 0 16px;font-size:15.5px">The stuff every builder, neighbour and brother-in-law has a strong opinion on \u2014 explained calmly, so you can tell a real answer from a sales line or a habit.</p>'+
+      '<div class="card">'+exHTML+'</div></section>'+
+
+    '<section><span class="lbl">Spot a rip-off</span><h2>What a <em>fair quote</em> looks like</h2>'+
+      fqHTML+'</section>'+
+
+    '<section><span class="lbl">Get the money you\u2019re owed</span><h2>How to actually claim your grants</h2>'+
+      '<div class="card">'+gwHTML+'</div></section>'+
+
+    '<section><span class="lbl">The reasoning</span><h2>Why your plan ranks <em>the way it does</em></h2>'+
+      '<div class="card">'+why+'</div></section>'+
 
     '<section><span class="lbl">Full transparency</span><h2>The assumptions behind every number</h2>'+
       '<div class="card">'+asumHTML+'</div>'+
