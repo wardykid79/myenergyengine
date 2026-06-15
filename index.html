@@ -11,7 +11,12 @@
 <meta property="og:description" content="If it was my own money, what would I do with your house? An independent engine that shows its working and can't be bought.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_IE">
-<!-- og:image to add: 1200x630 og-image.png -->
+<meta property="og:image" content="https://myenergyengine.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="logo-mark.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -54,7 +59,7 @@
   .bar{position:sticky;top:0;z-index:40;background:rgba(246,248,246,.82);backdrop-filter:saturate(160%) blur(12px);border-bottom:1px solid var(--line)}
   .bar .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
   .brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:18.5px;letter-spacing:-.03em;white-space:nowrap;min-width:0}
-  .seal{width:30px;height:30px;flex:0 0 auto;border-radius:9px;background:linear-gradient(150deg,var(--brand),var(--brand-2));display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px -4px rgba(10,122,98,.5)}
+  .seal{width:32px;height:32px;flex:0 0 auto;object-fit:contain;display:block}
   .seal svg{width:17px;height:17px}
   .brand small{font-family:"JetBrains Mono",monospace;font-weight:400;font-size:10.5px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-left:2px}
   .bar nav{display:flex;align-items:center;gap:26px}
@@ -431,7 +436,7 @@
 <header class="bar">
   <div class="wrap">
     <div class="brand">
-      <span class="seal"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <img class="seal" src="logo-mark.png" alt="My Energy Engine" width="32" height="32">
       My Energy Engine <small>honest · independent</small>
     </div>
     <nav>
@@ -790,7 +795,7 @@
   <div class="wrap">
     <div>
       <div class="fbrand">
-        <span class="seal" style="width:26px;height:26px"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <img class="seal" src="logo-mark.png" alt="" width="26" height="26" style="width:26px;height:26px">
         My Energy Engine
       </div>
       <div class="flinks">
